@@ -1,26 +1,34 @@
 package hello;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.domain.Auditable;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
-@Data
+@Setter(AccessLevel.PUBLIC)
+@Getter(AccessLevel.PUBLIC)
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Post {
     private @Id
     @GeneratedValue
     Long id;
 
     private String text;
-    private String subject;
+
+    @CreatedDate
+    private Date createdDate;
 
     private Post() {
     }
 
-    public Post(String text, String subject) {
+    public Post(String text) {
         this.text = text;
-        this.subject = subject;
     }
 }
