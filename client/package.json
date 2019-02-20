@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "emoji-mart": "^2.9.2",
     "es6-promise": "^4.2.6",
     "isomorphic-fetch": "^2.2.1",
     "react": "^16.8.2",
