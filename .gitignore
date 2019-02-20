@@ -1,0 +1,11 @@
+.gradle
+.idea
+build/
+gradle/
+gradlew
+gradlew.bat
+out/
+client/dist/
+
+src/main/resources/static/built/
+src/main/resources/static/images/

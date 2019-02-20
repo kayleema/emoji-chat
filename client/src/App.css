@@ -1,0 +1,92 @@
+body{
+  background-color: #eee;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  padding: 30px;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.feed {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+
+.post {
+  display: flex;
+  padding: 30px;
+  margin-top: 20px;
+  background: #fff;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px #ddd;
+}
+input {
+  flex-grow: 1;
+  height: 14px;
+  width: auto;
+  padding: 7px;
+  line-height: 1;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px #ddd inset;
+}
+
+button {
+  outline: none;
+  line-height: 1;
+  font-size: 14px;
+  padding: 7px;
+  border-radius: 5px;
+  border: 1px solid #227;
+  margin-left: 25px;
+  background: #449;
+  color: #fff;
+  box-shadow: 0 3px 8px #aaa;
+}
+
+button:hover {
+  background: #55a;
+  box-shadow: 0 2px 5px #aaa;
+}
+
+button:active {
+  outline: none;
+  box-shadow: 0 2px 5px #fff;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 2px 5px #88f;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
