@@ -14,9 +14,8 @@ class App extends Component {
                     <form className="logout" action="/logout" method="post">
                         <button type="submit">ログアウト</button>
                     </form>
-                    <img src={logo} className="App-logo" alt="logo"/>
+                    <img src={logo} className="App-logo" alt="logo" />
                 </header>
-
                 <BrowserRouter>
                     <div>
                         <Route exact path='/' component={Feed} />

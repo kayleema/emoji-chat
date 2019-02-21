@@ -2,5 +2,6 @@
 applications:
   - name: emoji
     path: build/libs/gs-rest-service-0.1.0.jar
+    memory: 1g
     services:
       - kayleedb

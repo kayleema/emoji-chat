@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from "react-router-dom";
 
 
 export default class Home extends Component {
@@ -11,7 +12,7 @@ export default class Home extends Component {
                         <a href="/login">ログイン</a>
                     </p>
                     <p>
-                        <a href='/register'>新しい会計を作る</a>
+                        <Link to='/register'>新しい会計を作る</Link>
                     </p>
                 </div>
             </div>
