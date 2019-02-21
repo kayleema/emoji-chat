@@ -17,7 +17,12 @@ export default class Feed extends Component {
 
     getPosts() {
         fetch('/api/posts')
-            .then(response => response.json())
+            .then(response => {
+                if (response.status !== 200) {
+                    this.props.history.push('/home');
+                }
+                return response.json();
+            })
             .then((data) => (data._embedded.posts))
             .then(posts => this.setState({
                 posts: posts.sort((a, b) => (new Date(a.createdDate) > new Date(b.createdDate)) ? -1 : 1)
@@ -35,8 +40,8 @@ export default class Feed extends Component {
             .then(() => {
                 this.setState({
                     message: ''
-                })
-                this.getPosts()
+                });
+                this.getPosts();
             })
     }
 
@@ -66,7 +71,7 @@ export default class Feed extends Component {
 
     render() {
         return (
-            <div className="feed">
+            <div className="page">
                 <div className="post">
                     <form className="search">
                         <input
