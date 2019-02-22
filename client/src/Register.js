@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import EmojiInputBox from "./EmojiInputBox";
 
 
 export default class Register extends Component {
@@ -30,35 +31,31 @@ export default class Register extends Component {
         return (
             <div className="page">
                 <div className="post">
-                    <form className="register">
-                        <p>
-                            <label>🆔📛📇→&nbsp;&nbsp;
-                                <input
-                                    type="text"
-                                    onChange={e => this.setState({username: e.target.value})}
-                                />
-                            </label>
-                        </p>
-                        <p>
-                            <label>🤐🤫㊙️→&nbsp;&nbsp;
-                                <input
-                                    type="password"
-                                    onChange={e => this.setState({password: e.target.value})}
-                                />
-                            </label>
-                        </p>
-                        <p>
-                            <label>🤐🤫㊙️🔄👀✔️→&nbsp;&nbsp;
-                                <input
-                                    type="password"
-                                    onChange={e => this.setState({password2: e.target.value})}
-                                />
-                            </label>
-                        </p>
-                        <p>
-                            <button onClick={this.onSubmit.bind(this)} type='submit'>✨🏃✨</button>
-                        </p>
-                    </form>
+                    <label>🆔📛📇→&nbsp;&nbsp;
+                    </label>
+                    <EmojiInputBox
+                        value={this.state.username}
+                        onSelectEmoji={emoji => this.setState({username: this.state.username + emoji.native})}
+                    />
+                </div>
+                <div className="post">
+                    <label>🤐🤫㊙️→&nbsp;&nbsp;
+                    </label>
+                    <EmojiInputBox
+                        value={this.state.password}
+                        onSelectEmoji={emoji => this.setState({password: this.state.password + emoji.native})}
+                    />
+                </div>
+                <div className="post">
+                    <label>🤐🤫㊙️🔄👀✔️→&nbsp;&nbsp;
+                    </label>
+                    <EmojiInputBox
+                        value={this.state.password2}
+                        onSelectEmoji={emoji => this.setState({password2: this.state.password2 + emoji.native})}
+                    />
+                </div>
+                <div className="post">
+                    <button onClick={this.onSubmit.bind(this)} type='submit'>✨🏃✨</button>
                 </div>
             </div>
         )

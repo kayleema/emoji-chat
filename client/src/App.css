@@ -142,6 +142,11 @@ button:active {
     border-bottom: 4px solid red;
 }
 
+.emojiInputBox {
+    display: flex;
+    flex-direction: column;
+}
+
 @keyframes App-logo-spin {
     from {
         transform: rotate(0deg);
