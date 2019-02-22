@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import 'emoji-mart/css/emoji-mart.css'
 import {Picker} from 'emoji-mart'
+import {numberToEmoji} from './utils'
 
 export default class Feed extends Component {
     constructor(props) {
@@ -9,6 +10,12 @@ export default class Feed extends Component {
             posts: [],
             message: ''
         }
+    }
+
+    onLogoutClick() {
+        fetch('/logout', {method: 'POST'}).then(() => {
+            this.props.history.push("/home");
+        });
     }
 
     componentDidMount() {
@@ -52,13 +59,13 @@ export default class Feed extends Component {
     formatDate(date) {
         const s = date;
         const a = s.split(/[^0-9]/);
-        const d = new Date (a[0],a[1]-1,a[2],a[3],a[4],a[5] );
+        const d = new Date(a[0], a[1] - 1, a[2], a[3], a[4], a[5]);
         return (
-            d.getFullYear() + '🎍' +
-            (d.getMonth() + 1) + '🌙' +
-            d.getDate() + '☀️' +
-            d.getHours() + '⏰' +
-            d.getMinutes() + '⏲️'
+            numberToEmoji(d.getFullYear()) + '🎍' +
+            numberToEmoji(d.getMonth() + 1) + '🌙' +
+            numberToEmoji(d.getDate()) + '☀️' +
+            numberToEmoji(d.getHours()) + '⏰' +
+            numberToEmoji(d.getMinutes()) + '⏲️'
         );
     }
 
@@ -72,6 +79,11 @@ export default class Feed extends Component {
     render() {
         return (
             <div className="page">
+                <div className="logout">
+                    <button onClick={this.onLogoutClick.bind(this)}>
+                        🚪👋
+                    </button>
+                </div>
                 <div className="post">
                     <form className="search">
                         <input
@@ -81,13 +93,15 @@ export default class Feed extends Component {
                             value={this.state.message}
                         />
                         <button className="primary" type="submit"
-                                onClick={this.onSubmit.bind(this)}>→</button>
+                                onClick={this.onSubmit.bind(this)}>📤📬📡
+                        </button>
                     </form>
                     <Picker
                         onSelect={this.onSelectEmoji.bind(this)}
                         style={{width: '100%'}}
                         title='絵文字を選んでください'
                         emoji='smile_cat'
+                        native={true}
                         i18n={{
                             search: '検索',
                             notfound: '見つけられませんでした',
@@ -107,13 +121,13 @@ export default class Feed extends Component {
                             }
                         }}
                         emojiTooltip={false}
-                        // showPreview={false}
+                        showPreview={true}
                     />
                 </div>
                 {this.state.posts.map((post, index) => (
                     <div key={index} className="post">
                         <p className="postText">{post.text}</p>
-                        <p className='date'>{this.formatDate(post.createdDate)}</p>
+                        <p className='date'>{post.createdBy}👉{this.formatDate(post.createdDate)}</p>
                     </div>
                 ))}
             </div>

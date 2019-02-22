@@ -3,6 +3,7 @@ package hello;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -22,6 +23,9 @@ public class Post {
 
     @CreatedDate
     private Date createdDate;
+
+    @CreatedBy
+    private String createdBy;
 
     private Post() {
     }

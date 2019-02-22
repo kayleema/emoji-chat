@@ -7,12 +7,12 @@ export default class Home extends Component {
         return (
             <div className="page">
                 <div className="post">
-                    <h1>ログインされていません</h1>
+                    <h1>🙇</h1>
                     <p>
-                        <a href="/login">ログイン</a>
+                        <Link to="/signin" className="buttonLink">👋🙋💁‍️👉</Link>
                     </p>
                     <p>
-                        <Link to='/register'>新しい会計を作る</Link>
+                        <Link to='/register' className="buttonLink">✨🔰🆕👤🆔🔰✨</Link>
                     </p>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 body {
     background-color: #eee;
+    font-size: 24px;
 }
 
 .App {
@@ -23,23 +24,24 @@ body {
     padding: 30px;
 }
 
-form.logout {
+div.logout {
     width: 100%;
     text-align: right;
 }
-form.logout button {
-    box-shadow: none;
+div.logout button {
+    font-size: 14px;
     text-align: center;
     padding: 7px;
-    border-radius: 5px;
-    border: 1px solid #999;
     margin-left: 25px;
-    background-color: #282c34;
+    background-color: #fff;
     color: #999;
+    border-radius: 0 0 8px 8px;
+    border: 1px solid #888;
+    border-top: none;
 }
-form.logout button:hover {
-    color: #fff;
-    border-color: #fff;
+div.logout button:hover {
+    color: #000;
+    border-color: #000;
 }
 
 .App-link {
@@ -53,7 +55,7 @@ form.logout button:hover {
 
 
 .post {
-    padding: 30px;
+    padding: 20px 30px;
     margin-top: 20px;
     background: #fff;
     border-radius: 5px;
@@ -67,11 +69,13 @@ p.postText {
     padding: 0;
 }
 p.date {
+    border-top: 1px solid #ddd;
     margin-top: 5px;
     margin-bottom: -5px;
-    font-size: 80%;
+    font-size: 14px;
     opacity: 0.5;
     text-align: right;
+    font-weight: bold;
 }
 
 form.search {
@@ -109,26 +113,33 @@ button {
     font-size: 24px;
     padding: 7px;
     border-radius: 5px;
-    border: 1px solid #227;
+    border: 1px solid #888;
     margin-left: 25px;
-    background: #449;
-    color: #fff;
+    background: #ddd;
+    color: #888;
     box-shadow: 0 3px 8px #aaa;
 }
 
 button:focus {
-    background: #338;
+    background: #eee;
+    border-color: #222;
     outline: none;
 }
 
 button:hover {
-    background: #55a;
+    background: #fff;
     box-shadow: 0 2px 5px #aaa;
 }
 
 button:active {
     outline: none;
     box-shadow: 0 2px 5px #fff;
+}
+
+.error {
+    padding: 5px 10px;
+    text-align: center;
+    border-bottom: 4px solid red;
 }
 
 @keyframes App-logo-spin {

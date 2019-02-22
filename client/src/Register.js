@@ -8,6 +8,7 @@ export default class Register extends Component {
             username: '',
             password: '',
             password2: '',
+            success: false,
         }
     }
 
@@ -21,8 +22,7 @@ export default class Register extends Component {
         fetch('/registration', {method: 'POST', headers, body})
             .then(result => result.json())
             .then(json => {
-                console.log(json);
-                window.location = '/login';
+                this.props.history.push('/signin')
             });
     }
 
@@ -32,7 +32,7 @@ export default class Register extends Component {
                 <div className="post">
                     <form className="register">
                         <p>
-                            <label>ユーザー名: &nbsp;&nbsp;
+                            <label>🆔📛📇→&nbsp;&nbsp;
                                 <input
                                     type="text"
                                     onChange={e => this.setState({username: e.target.value})}
@@ -40,7 +40,7 @@ export default class Register extends Component {
                             </label>
                         </p>
                         <p>
-                            <label>パスワード: &nbsp;&nbsp;
+                            <label>🤐🤫㊙️→&nbsp;&nbsp;
                                 <input
                                     type="password"
                                     onChange={e => this.setState({password: e.target.value})}
@@ -48,7 +48,7 @@ export default class Register extends Component {
                             </label>
                         </p>
                         <p>
-                            <label>パスワードもう一回: &nbsp;&nbsp;
+                            <label>🤐🤫㊙️🔄👀✔️→&nbsp;&nbsp;
                                 <input
                                     type="password"
                                     onChange={e => this.setState({password2: e.target.value})}
@@ -56,7 +56,7 @@ export default class Register extends Component {
                             </label>
                         </p>
                         <p>
-                            <button onClick={this.onSubmit.bind(this)} type='submit'>次へ</button>
+                            <button onClick={this.onSubmit.bind(this)} type='submit'>✨🏃✨</button>
                         </p>
                     </form>
                 </div>

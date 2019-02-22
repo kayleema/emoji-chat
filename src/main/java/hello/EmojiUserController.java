@@ -41,4 +41,11 @@ public class EmojiUserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication;
     }
+
+    @RequestMapping(value = "/user/login", method = RequestMethod.GET)
+    @ResponseBody
+    public Authentication userLogin(final HttpServletRequest request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication;
+    }
 }
