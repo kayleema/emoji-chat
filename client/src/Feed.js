@@ -61,7 +61,7 @@ export default class Feed extends Component {
         const a = s.split(/[^0-9]/);
         const d = new Date(a[0], a[1] - 1, a[2], a[3], a[4], a[5]);
         return (
-            numberToEmoji(d.getFullYear()) + '🎍' +
+            // numberToEmoji(d.getFullYear()) + '🎍' +
             numberToEmoji(d.getMonth() + 1) + '🌙' +
             numberToEmoji(d.getDate()) + '☀️' +
             numberToEmoji(d.getHours()) + '⏰' +

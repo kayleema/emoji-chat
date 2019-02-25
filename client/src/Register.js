@@ -8,7 +8,6 @@ export default class Register extends Component {
         this.state = {
             username: '',
             password: '',
-            password2: '',
             success: false,
         }
     }
@@ -36,6 +35,7 @@ export default class Register extends Component {
                     <EmojiInputBox
                         value={this.state.username}
                         onSelectEmoji={emoji => this.setState({username: this.state.username + emoji.native})}
+                        onClear={e => this.setState({username: ''})}
                     />
                 </div>
                 <div className="post">
@@ -44,14 +44,7 @@ export default class Register extends Component {
                     <EmojiInputBox
                         value={this.state.password}
                         onSelectEmoji={emoji => this.setState({password: this.state.password + emoji.native})}
-                    />
-                </div>
-                <div className="post">
-                    <label>🤐🤫㊙️🔄👀✔️→&nbsp;&nbsp;
-                    </label>
-                    <EmojiInputBox
-                        value={this.state.password2}
-                        onSelectEmoji={emoji => this.setState({password2: this.state.password2 + emoji.native})}
+                        onClear={e => this.setState({password: ''})}
                     />
                 </div>
                 <div className="post">

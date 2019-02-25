@@ -7,11 +7,8 @@ export default class Home extends Component {
         return (
             <div className="page">
                 <div className="post">
-                    <h1>🙇</h1>
                     <p>
-                        <Link to="/signin" className="buttonLink">👋🙋💁‍️👉</Link>
-                    </p>
-                    <p>
+                        <Link to="/signin" className="buttonLink">👋🙋💁‍️</Link>
                         <Link to='/register' className="buttonLink">✨🔰🆕👤🆔🔰✨</Link>
                     </p>
                 </div>
