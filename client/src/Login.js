@@ -44,6 +44,7 @@ export default class Login extends Component {
                             </p>
                         </div>
                     )}
+                    <h1>ログイン</h1>
                     <div className="post">
                         <label>🆔🧑📛📇
                         </label>
@@ -54,7 +55,7 @@ export default class Login extends Component {
                         />
                     </div>
                     <div className="post">
-                        <label>🤐🤫㊙️→&nbsp;&nbsp;
+                        <label>暗号🤐🤫㊙️
                         </label>
                         <EmojiInputBox
                             value={this.state.password}
@@ -64,10 +65,10 @@ export default class Login extends Component {
                     </div>
                     <div className="post">
                         <p>
-                            <button type='submit'>🏃☺️</button>
+                            <button type='submit'>🏃😄️️️・ログイン️</button>
                         </p>
                         <p>
-                            <Link to='/register' className="buttonLink">🔰😕</Link>
+                            <Link to='/register' className="buttonLink">🔰😕・新しいユーザー</Link>
                         </p>
                     </div>
                 </form>

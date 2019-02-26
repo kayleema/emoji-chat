@@ -4,7 +4,7 @@ module.exports = {
     entry: './src/index.js',
     devtool: 'sourcemaps',
     cache: true,
-    mode: 'production',
+    mode: 'development',
     output: {
         path: __dirname,
         filename: '../src/main/resources/static/built/bundle.js'

@@ -22,7 +22,7 @@ public class EmojiUserService {
         return user;
     }
 
-    private boolean usernameExist(String name) {
+    public boolean usernameExist(String name) {
         EmojiUser user = repository.findByName(name);
         return user != null;
     }

@@ -3,13 +3,11 @@ package hello;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -47,5 +45,15 @@ public class EmojiUserController {
     public Authentication userLogin(final HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication;
+    }
+
+    @RequestMapping(value="/user-search/{name}", method = RequestMethod.GET)
+    @ResponseBody
+    public EmojiUser userSearch(final HttpServletRequest request,
+                                @PathVariable("name") String name) {
+        if (service.usernameExist(name)) {
+            return new EmojiUser(name, "");
+        }
+        throw new ResourceNotFoundException();
     }
 }

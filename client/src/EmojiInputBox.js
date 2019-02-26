@@ -14,6 +14,14 @@ export default class EmojiInputBox extends Component {
             <div className="emojiInputBox">
                 <div className={`inputBox ${this.state.focused ? 'inputBoxFocus':''}`} onClick={() => this.setState({focused: true})}>
                     {this.props.value}{this.state.focused ? '_':''}
+                    {this.props.buttonText &&
+                    <button className="submitPost" type="submit" onClick={(e) => {
+                        e.stopPropagation();
+                        this.setState({focused: false});
+                        this.props.onButtonClick(e);
+                    }}>
+                        {this.props.buttonText}
+                    </button>}
                     <button type="button" className="clearButton" onClick={() => this.props.onClear()}>❌</button>
                 </div>
                 {this.state.focused && (

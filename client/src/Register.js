@@ -29,8 +29,9 @@ export default class Register extends Component {
     render() {
         return (
             <div className="page">
+                <h1>アカウント作成</h1>
                 <div className="post">
-                    <label>🆔📛📇→&nbsp;&nbsp;
+                    <label>🆔📛📇
                     </label>
                     <EmojiInputBox
                         value={this.state.username}
@@ -39,7 +40,7 @@ export default class Register extends Component {
                     />
                 </div>
                 <div className="post">
-                    <label>🤐🤫㊙️→&nbsp;&nbsp;
+                    <label>暗号🤐🤫㊙️
                     </label>
                     <EmojiInputBox
                         value={this.state.password}
@@ -48,7 +49,7 @@ export default class Register extends Component {
                     />
                 </div>
                 <div className="post">
-                    <button onClick={this.onSubmit.bind(this)} type='submit'>✨🏃✨</button>
+                    <button onClick={this.onSubmit.bind(this)} type='submit'>✨🏃✨・アカウント作成</button>
                 </div>
             </div>
         )

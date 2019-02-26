@@ -11,3 +11,15 @@ export const  numberToEmoji = (n) => {
         char => numbers[parseInt(char)]
     ).join('');
 };
+
+export const formatDate = (date) => {
+    const s = date;
+    const a = s.split(/[^0-9]/);
+    const d = new Date(a[0], a[1] - 1, a[2], a[3], a[4], a[5]);
+    return (
+        numberToEmoji(d.getMonth() + 1) + '🌙' +
+        numberToEmoji(d.getDate()) + '☀️' +
+        numberToEmoji(d.getHours()) + '⏰' +
+        numberToEmoji(d.getMinutes()) + '⏲️'
+    );
+}
