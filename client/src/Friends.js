@@ -7,7 +7,24 @@ export default class Friends extends Component {
         super(props);
         this.state = {
             search: '',
+            friendList: []
         }
+    }
+
+    componentDidMount() {
+        this.loadFriendList();
+    }
+
+    loadFriendList() {
+        fetch('/user-details/', {method: 'GET'})
+            .then(result => {
+                return result.json();
+            })
+            .then(json => {
+                this.setState({
+                    friendList: json.friend
+                });
+            });
     }
 
     onSearch(e) {
@@ -25,7 +42,7 @@ export default class Friends extends Component {
             })
             .then(json => {
                 console.log(json);
-                if(json) {
+                if (json) {
                     this.setState({
                         searchResults: [json]
                     });
@@ -33,26 +50,47 @@ export default class Friends extends Component {
             });
     }
 
+    onClickAddFriend(username) {
+        const body = JSON.stringify({username});
+        const headers = {'Content-Type': 'application/json'};
+        fetch('/add-friend', {method: 'POST', headers, body})
+            .then(() => {
+                this.setState({
+                    searchResults: undefined
+                });
+                this.loadFriendList();
+            })
+    }
+
     render() {
         return (
             <div className="page">
-                <h1>👭👫👬・友達</h1>
+                <h1>👭👫👬</h1>
                 <div className="post">
-                    <label>🔎
-                    </label>
+                    <h2>📇 友達一覧</h2>
+                    <div className="post">
+                        <ul>
+                            {this.state.friendList.map(friend => (
+                                <li>{friend.name}</li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+                <div className="post">
+                    <h2>🔎 達追加</h2>
                     <EmojiInputBox
                         value={this.state.search}
                         onSelectEmoji={emoji => this.setState({search: this.state.search + emoji.native})}
                         onClear={e => this.setState({search: ''})}
-                        buttonText="🔎🕵🏻‍♀️🔍"
+                        buttonText="🕵🏻‍♀️🔍"
                         onButtonClick={this.onSearch.bind(this)}
                     />
                     {(this.state.searchResults && this.state.searchResults.length > 0) && (
                         <div className="post">
                             {this.state.searchResults.map((user) => (
                                 <p key={user.name}>
-
-                                    {user.name}<button>➕👫追加</button>
+                                    {user.name}&nbsp;&nbsp;
+                                    <button onClick={() => this.onClickAddFriend(user.name)}>➕👫追加</button>
                                 </p>
                             ))}
                         </div>
@@ -65,7 +103,10 @@ export default class Friends extends Component {
                         </div>
                     )}
                 </div>
-                <button onClick={()=> {this.props.history.push('/');}}>🔙</button>
+                <button onClick={() => {
+                    this.props.history.push('/');
+                }}>🔙
+                </button>
             </div>
         )
     }

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import 'emoji-mart/css/emoji-mart.css'
-import {numberToEmoji} from './utils'
 import EmojiInputBox from "./EmojiInputBox";
 import Post from "./Post";
 
@@ -95,10 +94,6 @@ export default class Feed extends Component {
             })
     }
 
-    onChangeMessage(event) {
-        // this.setState({message: event.target.value});
-    }
-
     onSelectEmoji(emoji) {
         this.setState({
             message: this.state.message + emoji.native,
@@ -110,10 +105,10 @@ export default class Feed extends Component {
             <div className="page">
                 <div className="logout">
                     <button onClick={() => {this.props.history.push('/friend')}}>
-                        👭・友達
+                        👭
                     </button>
                     <button onClick={this.onLogoutClick.bind(this)}>
-                        🚪👋・ログアウト
+                        🚪👋 ログアウト
                     </button>
                 </div>
                 <div className="post">

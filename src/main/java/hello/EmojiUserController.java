@@ -32,12 +32,19 @@ public class EmojiUserController {
         return this.service.registerNewUserAccount(accountDto);
     }
 
-
     @RequestMapping(value = "/user-details", method = RequestMethod.GET)
     @ResponseBody
-    public Authentication userDetails(final HttpServletRequest request) {
+    public EmojiUser userDetails(final HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication;
+        return this.service.findByName(authentication.getName());
+    }
+
+    @RequestMapping(value = "/add-friend", method = RequestMethod.POST)
+    @ResponseBody
+    public AddFriendDto addFriend( @RequestBody AddFriendDto addFriendDto, final HttpServletRequest request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        this.service.addFriend(authentication.getName(), addFriendDto.username);
+        return addFriendDto;
     }
 
     @RequestMapping(value = "/user/login", method = RequestMethod.GET)
@@ -55,5 +62,17 @@ public class EmojiUserController {
             return new EmojiUser(name, "");
         }
         throw new ResourceNotFoundException();
+    }
+
+    static class AddFriendDto {
+        private String username;
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
     }
 }

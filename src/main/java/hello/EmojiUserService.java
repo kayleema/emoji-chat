@@ -26,4 +26,15 @@ public class EmojiUserService {
         EmojiUser user = repository.findByName(name);
         return user != null;
     }
+
+    public EmojiUser addFriend(String username, String friendUsername) {
+        EmojiUser user = repository.findByName(username);
+        user.getFriend().add(repository.findByName(friendUsername));
+        this.repository.save(user);
+        return user;
+    }
+
+    public EmojiUser findByName(String name) {
+        return repository.findByName(name);
+    }
 }

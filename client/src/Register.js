@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import EmojiInputBox from "./EmojiInputBox";
+import {Link} from "react-router-dom";
 
 
 export default class Register extends Component {
@@ -22,11 +23,20 @@ export default class Register extends Component {
         fetch('/registration', {method: 'POST', headers, body})
             .then(result => result.json())
             .then(json => {
-                this.props.history.push('/signin')
+                this.setState({success: true});
+                // this.props.history.push('/signin')
             });
     }
 
     render() {
+        if (this.state.success) {
+            return (
+                <div className="page">
+                    <h1 className="hanamaru">✨💮✨</h1>
+                    <Link to='/signin'>💁 ログイン</Link>
+                </div>
+            )
+        }
         return (
             <div className="page">
                 <h1>アカウント作成</h1>
