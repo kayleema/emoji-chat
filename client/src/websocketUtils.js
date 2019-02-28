@@ -3,7 +3,14 @@ const StompJs = require('@stomp/stompjs');
 
 export default class ChatSocket {
     constructor() {
-        const ws = new SockJS('/chat');
+        this.newMessageCallback = null;
+        this.chatInitializerCallback = null;
+    }
+
+    connect(conversationId) {
+        this.conversationId = conversationId;
+
+        const ws = new SockJS('/posts');
         this.client = StompJs.Stomp.over(ws);
 
         this.client.onConnect = this.onSocketConnect.bind(this);
@@ -20,11 +27,38 @@ export default class ChatSocket {
         this.client.activate();
     }
 
+    setNewMessageCallback(callback) {
+        this.newMessageCallback = callback;
+    }
+
+    setChatInitializerCallback(callback) {
+        this.chatInitializerCallback = callback;
+    }
+
+    newPostMessage(message) {
+        console.log(JSON.parse(message.body));
+        this.newMessageCallback(JSON.parse(message.body));
+    }
+
+    newHistory(message) {
+        console.log(message);
+        console.log(JSON.parse(message.body));
+        if (this.chatInitializerCallback) {
+            this.chatInitializerCallback(JSON.parse(message.body))
+        }
+    }
 
     onSocketConnect(frame) {
         console.log('connected', frame);
 
-        let subscription = this.client.subscribe('/topic/newMessage', this.newPostMessage.bind(this));
-        console.log('subscription', subscription);
+        // let subscriptionA = this.client.subscribe('/topic/messages', this.newPostMessage.bind(this));
+        let subscriptionB = this.client.subscribe(`/topic/messages/${this.conversationId}`, this.newPostMessage.bind(this));
+        let subscriptionS = this.client.subscribe(`/app/messages/${this.conversationId}`, this.newHistory.bind(this));
+        console.log('subscriptions: ', subscriptionB, subscriptionS);
+    }
+
+    sendMessage(message) {
+        // this.client.publish({destination: '/app/chat', body: JSON.stringify({text:message})});
+        this.client.publish({destination: `/app/chat/${this.conversationId}`, body: JSON.stringify({text: message})});
     }
 }

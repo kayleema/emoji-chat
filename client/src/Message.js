@@ -46,15 +46,16 @@ export default class Message extends Component {
     render() {
         return (
             <div className="page">
-                <h1>✉️</h1>
+                <h1>🗣チャット</h1>
+
                 <div className="post">
                     <button onClick={() => {
                         this.props.history.push('/message/new');
-                    }}>🆕
+                    }}>🆕 新しいチャットを作る ✨
                     </button>
                 </div>
                 <div className="post buttonList">
-                    <h2>会話一覧</h2>
+                    <h2>チャット一覧</h2>
                     {this.state.conversations.map(conversation => (
                         <button
                             key={conversation.id}

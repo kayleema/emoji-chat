@@ -109,20 +109,20 @@ export default class Feed extends Component {
         return (
             <div className="page">
                 <div className="logout">
-                    {/*<button onClick={() => {*/}
-                        {/*this.props.history.push('/message');*/}
-                    {/*}}>*/}
-                        {/*✉️✍️*/}
-                    {/*</button>*/}
+                    <button onClick={() => {
+                        this.props.history.push('/message');
+                    }}>
+                        🗣チャット
+                    </button>
                     <button onClick={() => {
                         this.props.history.push('/friend');
                     }}>
-                        👭👬
+                        👭友達
                     </button>
                     <button onClick={() => {
                         this.onLogoutClick();
                     }}>
-                        🚪👋ログアウト・
+                        👋ログアウト・
                     </button>
                 </div>
                 <div className="post">

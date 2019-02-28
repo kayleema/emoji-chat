@@ -1,12 +1,16 @@
 package hello;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
+
+import static javax.persistence.TemporalType.TIMESTAMP;
 
 @Setter(AccessLevel.PUBLIC)
 @Getter(AccessLevel.PUBLIC)
@@ -16,6 +20,23 @@ public class Message {
     @GeneratedValue
     private Long id;
 
+    @CreatedDate
+    @Temporal(TIMESTAMP)
+    private Date createdDate;
+
     private String text;
-    private String toUsername;
+
+    @JsonIgnoreProperties("friend")
+    @ManyToOne
+    private EmojiUser from;
+
+    @JsonIgnoreProperties("participant")
+    @ManyToOne
+    private Conversation conversation;
+
+
+    @PrePersist
+    protected void onCreate() {
+        createdDate = new Date();
+    }
 }

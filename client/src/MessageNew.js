@@ -32,7 +32,7 @@ export default class MessageNew extends Component {
         const id = e.target.value;
         const friend = this.state.friendList.find(friend => friend.id.toString() === id);
         console.log(friend);
-        this.setState({friendSelection : friend});
+        this.setState({friendSelection: friend});
     }
 
     onAddUser() {
@@ -47,13 +47,18 @@ export default class MessageNew extends Component {
         fetch('/new-conversation', {method: 'POST', body, headers, credentials: "same-origin", cache: "no-cache",})
             .then(result => {
                 return result.json();
-            }).then(json => console.log(json));
+            })
+            .then(json => {
+                console.log(json);
+                this.props.history.push(`/chat/${json.id}`);
+            });
     }
 
     render() {
         return (
             <div className="page">
-                <h1>✉️</h1>
+                <h1>🗣 新しいチャット</h1>
+
                 <div className="post">
                     <label>➕🆔追加</label>
                     <div className="selectContainer">
@@ -66,7 +71,8 @@ export default class MessageNew extends Component {
                         <button
                             onClick={this.onAddUser.bind(this)}
                             disabled={this.state.friendSelection === undefined}
-                        >➕</button>
+                        >➕
+                        </button>
                     </div>
                     <div className="post">
                         {this.state.participantList.length === 0 && "〜"}
@@ -78,7 +84,7 @@ export default class MessageNew extends Component {
                     </div>
                     <p>
                         {this.state.participantList.length > 0 && (
-                            <button onClick={this.onClickContinue.bind(this)}>📨🏃‍♀️</button>
+                            <button onClick={this.onClickContinue.bind(this)}>次▶️</button>
                         )}
                     </p>
                 </div>

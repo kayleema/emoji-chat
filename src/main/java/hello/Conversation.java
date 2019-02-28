@@ -5,10 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,7 +17,9 @@ public class Conversation {
     @GeneratedValue
     private Long id;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("friend")
     private Set<EmojiUser> participant = new HashSet<>();
+
+    public Conversation() {}
 }
