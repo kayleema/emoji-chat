@@ -15,21 +15,48 @@ export default class Login extends Component {
     onSubmit(e) {
         console.log(e.target);
         e.preventDefault();
-        const formData = new FormData(e.target);
-        console.log(formData);
-        formData.append("username", this.state.username);
-        formData.append("password", this.state.password);
+        // const formData = new FormData(e.target);
+        // console.log(formData);
+        // formData.append("username", this.state.username);
+        // formData.append("password", this.state.password);
+        //
+        // const body = "username=" + this.state.username + "&password=" + this.state.password;
+        //
+        // const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+        // fetch('/login', {method: 'POST', headers, body})
+        //     .then(result => {
+        //         if (result.status === 200) {
+        //             this.props.history.push('/');
+        //         } else {
+        //             this.setState({error: true});
+        //         }
+        //     });
 
-        const body = "username=" + this.state.username + "&password=" + this.state.password;
 
-        const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-        fetch('/login', {method: 'POST', headers, body})
+        this.login();
+    }
+
+    login() {
+        console.log('logging in');
+        const body = JSON.stringify({
+            username: this.state.username,
+            password: this.state.password
+        });
+        const headers = {'Content-Type': 'application/json'};
+        fetch('/user/login', {
+            method: 'POST', headers, body, credentials: "same-origin", cache: "no-cache",
+        })
             .then(result => {
-                if (result.status === 200) {
-                    this.props.history.push('/');
+                if (result.ok) {
+                    return result.json();
                 } else {
                     this.setState({error: true});
+                    console.log('login errror');
+                    throw Error(result.statusText);
                 }
+            }).then(json => {
+                console.log('login result', json);
+                this.props.history.push('/');
             });
     }
 
@@ -46,7 +73,7 @@ export default class Login extends Component {
                     )}
                     <h1>ログイン</h1>
                     <div className="post">
-                        <label>🆔🧑📛📇
+                        <label>🆔📛📇
                         </label>
                         <EmojiInputBox
                             value={this.state.username}

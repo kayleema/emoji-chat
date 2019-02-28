@@ -20,7 +20,9 @@ export default class Register extends Component {
             "password": this.state.password
         });
         const headers = {'Content-Type': 'application/json'};
-        fetch('/registration', {method: 'POST', headers, body})
+        fetch('/registration', {
+            method: 'POST', headers, body, credentials: "same-origin", cache: "no-cache"
+        })
             .then(result => result.json())
             .then(json => {
                 this.setState({success: true});

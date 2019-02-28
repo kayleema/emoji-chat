@@ -5,7 +5,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeController {
-    @RequestMapping(value = {"/", "/register", "/home", "/signin", "/friend"})
+    @RequestMapping(value = {
+            "/",
+            "/register",
+            "/home",
+            "/signin",
+            "/friend",
+            "/message",
+            "/message/**",
+            "/chat/**"
+    })
     public String index() {
         return "index";
     }

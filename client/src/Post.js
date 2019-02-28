@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import {formatDate} from "./utils";
-
 
 export default class Post extends Component {
     constructor(props) {
@@ -10,7 +8,7 @@ export default class Post extends Component {
     render() {
         return (
             <div className="post">
-                <span class="author">
+                <span className="author">
                     {this.props.post.createdBy}
                 </span>
                 ：

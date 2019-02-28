@@ -1,8 +1,6 @@
 package hello;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,7 +13,6 @@ import java.util.List;
 @Data
 @ToString(exclude = "password")
 @Entity
-@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class EmojiUser implements Serializable {
     public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
@@ -26,6 +23,7 @@ public class EmojiUser implements Serializable {
     private String name;
 
     @ManyToMany
+    @JsonIgnoreProperties("friend")
     private List<EmojiUser> friend;
 
     @JsonIgnore
@@ -41,6 +39,10 @@ public class EmojiUser implements Serializable {
     public EmojiUser(String name, String password) {
         this.name = name;
         this.setPassword(password);
+    }
+
+    public EmojiUser(Long id) {
+        this.id = id;
     }
 
 }

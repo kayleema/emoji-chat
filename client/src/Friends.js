@@ -16,8 +16,12 @@ export default class Friends extends Component {
     }
 
     loadFriendList() {
-        fetch('/user-details/', {method: 'GET'})
+        fetch('/user-details/', {method: 'GET', credentials: "same-origin", cache: "no-cache",})
             .then(result => {
+                if (result.status !== 200) {
+                    this.props.history.push('signin');
+                    return;
+                }
                 return result.json();
             })
             .then(json => {
@@ -30,7 +34,8 @@ export default class Friends extends Component {
     onSearch(e) {
         e.preventDefault();
         this.setState({search: ''});
-        fetch('/user-search/' + this.state.search, {method: 'GET'})
+        fetch('/user-search/' + this.state.search,
+            {method: 'GET', credentials: "same-origin", cache: "no-cache"})
             .then(result => {
                 if (result.status === 200) {
                     return result.json();
@@ -53,7 +58,7 @@ export default class Friends extends Component {
     onClickAddFriend(username) {
         const body = JSON.stringify({username});
         const headers = {'Content-Type': 'application/json'};
-        fetch('/add-friend', {method: 'POST', headers, body})
+        fetch('/add-friend', {method: 'POST', headers, body, credentials: "same-origin", cache: "no-cache",})
             .then(() => {
                 this.setState({
                     searchResults: undefined
@@ -77,7 +82,7 @@ export default class Friends extends Component {
                     </div>
                 </div>
                 <div className="post">
-                    <h2>🔎 達追加</h2>
+                    <h2>🔎 友達追加</h2>
                     <EmojiInputBox
                         value={this.state.search}
                         onSelectEmoji={emoji => this.setState({search: this.state.search + emoji.native})}

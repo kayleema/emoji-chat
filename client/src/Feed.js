@@ -19,9 +19,11 @@ export default class Feed extends Component {
     }
 
     onLogoutClick() {
-        fetch('/logout', {method: 'POST'}).then(() => {
-            this.props.history.push("/home");
-        });
+        console.log('logoutttt');
+        fetch('/logout', {method: 'POST', credentials: "same-origin", cache: "no-cache",})
+            .then(() => {
+                this.props.history.push("/home");
+            });
     }
 
     componentDidMount() {
@@ -30,7 +32,8 @@ export default class Feed extends Component {
     }
 
     getPosts() {
-        fetch('/api/posts')
+        const headers = {};
+        fetch('/api/posts', {method: 'GET', headers, credentials: "same-origin", cache: "no-cache",})
             .then(response => {
                 if (response.status !== 200) {
                     this.props.history.push('/home');
@@ -39,7 +42,7 @@ export default class Feed extends Component {
             })
             .then((data) => (data._embedded.posts))
             .then(posts => this.setState({
-                posts: posts.sort((a, b) => (new Date(a.createdDate) > new Date(b.createdDate)) ? -1 : 1)
+                posts: posts.sort((a, b) => (a.createdDate > b.createdDate) ? -1 : 1)
             }));
     }
 
@@ -85,7 +88,9 @@ export default class Feed extends Component {
             "subject": "user1"
         });
         const headers = {'Content-Type': 'application/json'};
-        fetch('/api/posts', {method: 'POST', headers, body})
+        fetch('/api/posts', {
+            method: 'POST', headers, body, credentials: "same-origin", cache: "no-cache"
+        })
             .then(() => {
                 this.setState({
                     message: ''
@@ -104,11 +109,20 @@ export default class Feed extends Component {
         return (
             <div className="page">
                 <div className="logout">
-                    <button onClick={() => {this.props.history.push('/friend')}}>
-                        👭
+                    {/*<button onClick={() => {*/}
+                        {/*this.props.history.push('/message');*/}
+                    {/*}}>*/}
+                        {/*✉️✍️*/}
+                    {/*</button>*/}
+                    <button onClick={() => {
+                        this.props.history.push('/friend');
+                    }}>
+                        👭👬
                     </button>
-                    <button onClick={this.onLogoutClick.bind(this)}>
-                        🚪👋 ログアウト
+                    <button onClick={() => {
+                        this.onLogoutClick();
+                    }}>
+                        🚪👋ログアウト・
                     </button>
                 </div>
                 <div className="post">
