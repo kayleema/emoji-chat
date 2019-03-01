@@ -10,7 +10,14 @@ export default class ChatSocket {
     connect(conversationId) {
         this.conversationId = conversationId;
 
-        const ws = new SockJS('/posts');
+        const hostname = window.location.hostname;
+        let ws;
+        if (hostname === 'emoji.kaylee.jp') {
+            ws = new SockJS(`https://${hostname}:4443/posts`)
+        } else {
+            ws = new SockJS('/posts');
+        }
+        console.log('websocket', ws);
         this.client = StompJs.Stomp.over(ws);
 
         this.client.onConnect = this.onSocketConnect.bind(this);

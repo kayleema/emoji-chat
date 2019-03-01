@@ -15,7 +15,7 @@ export default class Home extends Component {
                         <Link to="/signin" className="buttonLink">👋🙋💁・ログイン‍️</Link>
                     </p>
                     <p style={{textAlign: 'center'}}>
-                        <Link to='/register' className="buttonLink">🔰🆕👤🆔・新しい方</Link>
+                        <Link to='/register' className="buttonLink">🔰🆕🆔・新しい方</Link>
                     </p>
                 </div>
             </div>
