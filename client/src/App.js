@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import logo from './smiling-cat-face-with-open-mouth.png';
-import './App.css';
+import './App.scss';
 import Feed from "./Feed";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
 import Register from "./Register";
 import Home from "./Home";
 import Login from "./Login";
@@ -10,22 +9,21 @@ import Friends from "./Friends";
 import Message from "./Message";
 import MessageNew from "./MessageNew";
 import Chat from "./Chat";
+import Menu from "./Menu";
 
 class App extends Component {
 
     render() {
         return (
             <div className="App">
-                <header className="App-header">
-                    <a href="#" onClick={() => { window.location = '/' }}>
-                        <img src={logo} className="App-logo" alt="logo"/>
-                    </a>
-                    <a href="#" onClick={() => { window.location = '/' }}>
-                        <span>絵文字タイム</span>
-                    </a>
-                </header>
                 <BrowserRouter>
                     <div>
+                        <Switch>
+                            <Route exact path='/home' component={() => null} />
+                            <Route exact path='/signin' component={() => null} />
+                            <Route exact path='/register' component={() => null} />
+                            <Route path='/' component={Menu} />
+                        </Switch>
                         <Route exact path='/' component={Feed}/>
                         <Route exact path='/register' component={Register}/>
                         <Route exact path='/home' component={Home}/>

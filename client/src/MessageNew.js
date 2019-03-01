@@ -65,7 +65,7 @@ export default class MessageNew extends Component {
                         <select name="friend" onChange={this.onChangeFriendSelection.bind(this)}>
                             <option>洗濯してください</option>
                             {this.state.friendList.map((friend) => (
-                                <option value={friend.id}>{friend.name}</option>
+                                <option key={friend.id} value={friend.id}>{friend.name}</option>
                             ))}
                         </select>
                         <button
@@ -78,7 +78,7 @@ export default class MessageNew extends Component {
                         {this.state.participantList.length === 0 && "〜"}
                         <ul>
                             {this.state.participantList.map(participant => (
-                                <li>{participant.name}</li>
+                                <li key={participant.name}>{participant.name}</li>
                             ))}
                         </ul>
                     </div>

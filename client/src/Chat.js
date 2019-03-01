@@ -57,7 +57,7 @@ export default class Chat extends Component {
                 </div>
                 <div className="post">
                     {this.state.messages.map(message =>
-                        <p>
+                        <p key={message.id}>
                             <span className="author">{message.from.name}</span>
                             ：{message.text}
                         </p>

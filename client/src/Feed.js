@@ -18,14 +18,6 @@ export default class Feed extends Component {
         }
     }
 
-    onLogoutClick() {
-        console.log('logoutttt');
-        fetch('/logout', {method: 'POST', credentials: "same-origin", cache: "no-cache",})
-            .then(() => {
-                this.props.history.push("/home");
-            });
-    }
-
     componentDidMount() {
         this.getPosts();
         this.realtimeSetup();
@@ -59,7 +51,13 @@ export default class Feed extends Component {
     }
 
     realtimeSetup() {
-        const ws = new SockJS('/posts');
+        const hostname = window.location.hostname;
+        let ws;
+        if (hostname === 'emoji.kaylee.jp') {
+            ws = new SockJS(`https://${hostname}:4443/posts`)
+        } else {
+            ws = new SockJS('/posts');
+        }
         this.client = StompJs.Stomp.over(ws);
 
         this.client.onConnect = this.onSocketConnect.bind(this);
@@ -108,23 +106,6 @@ export default class Feed extends Component {
     render() {
         return (
             <div className="page">
-                <div className="logout">
-                    <button onClick={() => {
-                        this.props.history.push('/message');
-                    }}>
-                        🗣チャット
-                    </button>
-                    <button onClick={() => {
-                        this.props.history.push('/friend');
-                    }}>
-                        👭友達
-                    </button>
-                    <button onClick={() => {
-                        this.onLogoutClick();
-                    }}>
-                        👋ログアウト・
-                    </button>
-                </div>
                 <div className="post">
                     <EmojiInputBox
                         onSelectEmoji={this.onSelectEmoji.bind(this)}
