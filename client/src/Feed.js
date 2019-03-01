@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import 'emoji-mart/css/emoji-mart.css'
 import EmojiInputBox from "./EmojiInputBox";
 import Post from "./Post";
+import ReactGA from "react-ga";
 
 const SockJS = require('sockjs-client'); // <1>
 const StompJs = require('@stomp/stompjs'); // <2>
@@ -21,6 +22,11 @@ export default class Feed extends Component {
     componentDidMount() {
         this.getPosts();
         this.realtimeSetup();
+        ReactGA.pageview('/');
+    }
+
+    componentWillUnmount() {
+        this.client.deactivate();
     }
 
     getPosts() {

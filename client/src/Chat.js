@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ChatSocket from "./websocketUtils";
 import EmojiInputBox from "./EmojiInputBox";
+import ReactGA from "react-ga";
 
 export default class Chat extends Component {
     constructor(props) {
@@ -17,6 +18,7 @@ export default class Chat extends Component {
         this.chatSocket.setNewMessageCallback(this.newMessage.bind(this));
         this.chatSocket.setChatInitializerCallback(this.chatInitializerCallback.bind(this))
         this.chatSocket.connect(id);
+        ReactGA.pageview("/chat");
     }
 
     newMessage(message) {

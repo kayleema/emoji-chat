@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ReactGA from "react-ga";
 
 export default class Message extends Component {
     constructor(props) {
@@ -12,11 +13,16 @@ export default class Message extends Component {
     componentDidMount() {
         this.loadFriendList();
         this.loadConversationList();
+        ReactGA.pageview("/message");
     }
 
     loadFriendList() {
         fetch('/user-details/', {method: 'GET', credentials: "same-origin", cache: "no-cache",})
             .then(result => {
+                if (result.status === 401) {
+                    this.props.history.push('/signin');
+                    return;
+                }
                 return result.json();
             })
             .then(json => {
@@ -61,7 +67,7 @@ export default class Message extends Component {
                             key={conversation.id}
                             onClick={() => this.selectConversation(conversation)}
                         >
-                            {conversation.participant.map(user => user.name).join('・')}
+                            👥参加者：{conversation.participant.map(user => user.name).join('・')}
                         </button>
                     ))}
                 </div>

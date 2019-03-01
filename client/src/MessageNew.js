@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import EmojiInputBox from "./EmojiInputBox";
+import ReactGA from "react-ga";
 
 
 export default class MessageNew extends Component {
@@ -14,11 +15,15 @@ export default class MessageNew extends Component {
 
     componentDidMount() {
         this.loadFriendList();
+        ReactGA.pageview("/message/new");
     }
 
     loadFriendList() {
         fetch('/user-details/', {method: 'GET', credentials: "same-origin", cache: "no-cache",})
             .then(result => {
+                if (result.status === 401) {
+                    this.props.history.push('/signin');
+                }
                 return result.json();
             })
             .then(json => {

@@ -37,4 +37,8 @@ public class EmojiUserService {
     public EmojiUser findByName(String name) {
         return repository.findByName(name);
     }
+
+    public EmojiUser getById(Long id) {
+        return repository.getById(id);
+    }
 }

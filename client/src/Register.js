@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import EmojiInputBox from "./EmojiInputBox";
 import {Link} from "react-router-dom";
+import ReactGA from "react-ga";
 
 
 export default class Register extends Component {
@@ -11,6 +12,10 @@ export default class Register extends Component {
             password: '',
             success: false,
         }
+    }
+
+    componentDidMount() {
+        ReactGA.pageview("/register");
     }
 
     onSubmit(e) {
@@ -52,7 +57,7 @@ export default class Register extends Component {
                     />
                 </div>
                 <div className="post">
-                    <label>暗号🤐🤫㊙️
+                    <label>暗号🔑🤫㊙️
                     </label>
                     <EmojiInputBox
                         value={this.state.password}

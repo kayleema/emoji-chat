@@ -1,3 +1,5 @@
+$darkAccent:  #282c34;
+
 body {
   background-color: #eee;
   color: #777;
@@ -61,14 +63,21 @@ h2 {
 }
 
 .App-header {
-  background-color: #282c34;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  padding: 10px;
+  background-color: $darkAccent;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+
+  div.pad {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    padding: 10px;
+  }
 
   span {
     font-weight: bold;
@@ -96,6 +105,7 @@ h2 {
   .hamburger:hover {
     opacity: 1;
   }
+
   .change {
     .bar1 {
       -webkit-transform: rotate(-45deg) translate(-13px, 0);
@@ -113,11 +123,19 @@ h2 {
   }
 }
 
+.App-header-body-spacer {
+  height: 54px;
+}
+
 .menu {
-  background-color: #282c34;
+  background-color: $darkAccent;
   border-bottom: 3px solid black;
   border-top: 3px solid black;
   padding: 10px 0;
+  position: fixed;
+  top: 52px;
+  width: 100%;
+  z-index: 2;
 
   a {
     text-decoration: none;
@@ -131,12 +149,26 @@ h2 {
   a:hover {
     background: rgba(255, 255, 255, 0.2);
   }
+
+}
+
+.cover {
+  height: 100vh;
+  width: 100%;
+  background: #aaa;
+  display: block;
+  position: fixed;
+  opacity: 0.5;
+  z-index: 1;
 }
 
 div.title {
-  background-color: #282c34;
+  background-color: $darkAccent;
   color: white;
   text-align: center;
+}
+div.title2 {
+  background-color: hsl(0, 35%, 27%);
 }
 
 .App-link {
@@ -161,6 +193,35 @@ div.title {
   .post {
     margin: 10px 0 0;
     box-shadow: none;
+  }
+}
+
+.profileCover {
+  background-image: url(doodles.png);
+
+  background-repeat: repeat;
+  border-bottom: 1px solid #aaa;
+  margin-top: -26px;
+
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+
+  p {
+    opacity: 0.2;
+  }
+
+  .profileBadge {
+    background: white;
+    font-size: 40px;
+    border-radius: 40px;
+    border: 1px solid #aaa;
+    width: auto;
+    max-width: 240px;
+    padding: 10px 26px;
+    display: block;
+    margin-bottom: -38px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
   }
 }
 
@@ -267,27 +328,42 @@ button, .buttonLink {
   font-size: 24px;
   padding: 7px;
   border-radius: 5px;
-  border: 1px solid #22c;
+  border: 1px solid #bbb;
   background: #eee;
   color: #888;
-  box-shadow: 0 3px 8px #aaa;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
   text-decoration: none;
+
+  &:focus {
+    background: #eee;
+    border-color: #222;
+    outline: none;
+  }
+
+  &:hover {
+    background: #fff;
+    box-shadow: 0 2px 5px #aaa;
+  }
+
+  &:active {
+    outline: none;
+    box-shadow: 0 2px 5px #fff;
+  }
 }
 
-button:focus {
-  background: #eee;
-  border-color: #222;
-  outline: none;
-}
-
-button:hover, .buttonLink:hover {
-  background: #fff;
-  box-shadow: 0 2px 5px #aaa;
-}
-
-button:active {
-  outline: none;
-  box-shadow: 0 2px 5px #fff;
+.buttonTransparent {
+  background: none;
+  color: white;
+  border-color: white;
+  border-width: 2px;
+  &:hover {
+    background-color: rgba(255,255,255,0.2);
+    border-color: white;
+  }
+  &:focus, &:active {
+    background: rgba(255,255,255,0.4);
+    border-color: white;
+  }
 }
 
 .error {

@@ -11,11 +11,15 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.AnyRequestMatcher;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -58,6 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/",
                         "/friend",
                         "/message",
+                        "/message/**",
                         "/register",
                         "/signin",
                         "/built/**",
@@ -66,10 +71,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/favicon.ico")
                 .permitAll()
                 .anyRequest().authenticated();
-        http
-                .formLogin()
-                .successHandler(new JsonAuthenticationSuccessHandler())
-                .permitAll();
+//        http
+//                .loginPage("/signin")
+//                .successHandler(new JsonAuthenticationSuccessHandler())
+//                .permitAll();
         http
                 .csrf()
                 .disable()
@@ -78,7 +83,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.exceptionHandling()
                 //Actually Spring already configures default AuthenticationEntryPoint - LoginUrlAuthenticationEntryPoint
                 //This one is REST-specific addition to default one, that is based on PathRequest
-                .defaultAuthenticationEntryPointFor(getRestAuthenticationEntryPoint(), new AntPathRequestMatcher("/api/**"));
+                .defaultAuthenticationEntryPointFor(getRestAuthenticationEntryPoint(), new AntPathRequestMatcher("/api/**"))
+                .defaultAuthenticationEntryPointFor(new RedirectEntryPoint(), new AntPathRequestMatcher("/**"))
+                .accessDeniedPage("/signin");
+        http.sessionManagement()
+                .invalidSessionUrl("/signin");
     }
 
     private AuthenticationSuccessHandler successHandler() {
@@ -95,5 +104,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private AuthenticationEntryPoint getRestAuthenticationEntryPoint() {
         return new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED);
+    }
+
+    private static class RedirectEntryPoint implements AuthenticationEntryPoint {
+
+        @Override
+        public void commence(HttpServletRequest request,
+                             HttpServletResponse response,
+                             AuthenticationException authException) throws IOException, ServletException {
+
+//            //401（未認証エラーを返却する
+//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//
+//            response.setContentType("application/json");
+//            response.setCharacterEncoding("utf-8");
+//            response.getWriter()
+//                    .println("{\"msg\":\"API User needs Login. Please Register and Try Again...\"}");
+
+            RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+            redirectStrategy.sendRedirect(request, response, "/signin");
+        }
     }
 }

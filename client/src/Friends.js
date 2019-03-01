@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import EmojiInputBox from "./EmojiInputBox";
+import ReactGA from "react-ga";
 
 
 export default class Friends extends Component {
@@ -13,6 +14,7 @@ export default class Friends extends Component {
 
     componentDidMount() {
         this.loadFriendList();
+        ReactGA.pageview("/friend");
     }
 
     loadFriendList() {

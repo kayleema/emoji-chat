@@ -1,8 +1,7 @@
 package hello;
 
 import com.fasterxml.jackson.annotation.*;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.Proxy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,7 +10,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Data
+@Setter(AccessLevel.PUBLIC)
+@Getter(AccessLevel.PUBLIC)
 @ToString(exclude = "password")
 @Entity
 public class EmojiUser implements Serializable {
@@ -23,7 +23,7 @@ public class EmojiUser implements Serializable {
 
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JsonIgnoreProperties("friend")
     private List<EmojiUser> friend;
 

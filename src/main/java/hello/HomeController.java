@@ -13,6 +13,7 @@ public class HomeController {
             "/friend",
             "/message",
             "/message/**",
+            "/user/**",
             "/chat/**"
     })
     public String index() {
