@@ -53,6 +53,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
 //    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
+    implementation 'org.springframework.session:spring-session-jdbc'
+
     compileOnly 'org.projectlombok:lombok'
 
     runtimeOnly 'com.h2database:h2'

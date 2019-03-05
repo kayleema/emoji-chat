@@ -1,23 +1,20 @@
 import React, {Component} from 'react';
+import {Link} from "react-router-dom";
 
 export default class Post extends Component {
     constructor(props) {
         super(props);
     }
 
-    clickAuthor() {
-        this.props.history.push('/username-redirect/' + this.props.post.createdBy);
-    }
-
     render() {
         return (
-            <div className="post">
-                <span
-                    className="author"
-                    onClick={this.clickAuthor.bind(this)}
+            <div>
+                <Link
+                    className="friendIcon"
+                    to={'/username-redirect/' + this.props.post.createdBy}
                 >
                     {this.props.post.createdBy}
-                </span>
+                </Link>
                 ：
                 {this.props.post.text}
             </div>

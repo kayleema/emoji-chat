@@ -124,10 +124,12 @@ export default class Feed extends Component {
                         onButtonClick={this.onSubmit.bind(this)}
                     />
                 </div>
-                {this.state.posts.map((post, index) => (
-                    <Post key={index} post={post} history={this.props.history}/>
-                ))}
-                {(this.state.loading) && <Spinner/>}
+                <div className="post">
+                    {this.state.posts.map((post, index) => (
+                        <Post key={index} post={post} history={this.props.history}/>
+                    ))}
+                    {(this.state.loading) && <Spinner/>}
+                </div>
             </div>
         );
     }

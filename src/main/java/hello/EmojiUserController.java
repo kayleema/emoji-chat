@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -49,6 +50,18 @@ public class EmojiUserController {
         return this.service.findByName(authentication.getName());
     }
 
+    @RequestMapping(value = "/user-details", method = RequestMethod.POST)
+    @ResponseBody
+    public EmojiUser userDetailUpdate(@RequestBody UpdateProfileDto updateProfileDto,
+                                      final HttpServletRequest request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        EmojiUser me = this.service.findByName(authentication.getName());
+        if(updateProfileDto.getCountry() != null) {
+            me.setCountry(updateProfileDto.getCountry());
+        }
+        return service.updateProfile(me);
+    }
+
     @RequestMapping(value = "/user-profile/{userid}", method = RequestMethod.GET)
     @ResponseBody
     public EmojiUser userProfile(final HttpServletRequest request, @PathVariable("userid") Long userid) {
@@ -75,6 +88,9 @@ public class EmojiUserController {
         UsernamePasswordAuthenticationToken authReq
                 = new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
         Authentication auth = authManager.authenticate(authReq);
+        if (!auth.isAuthenticated()) {
+            return auth;
+        }
         SecurityContext sc = SecurityContextHolder.getContext();
         sc.setAuthentication(auth);
         return auth;
@@ -120,6 +136,18 @@ public class EmojiUserController {
 
         public void setPassword(String password) {
             this.password = password;
+        }
+    }
+
+    static class UpdateProfileDto {
+        private String country;
+
+        public String getCountry() {
+            return country;
+        }
+
+        public void setCountry(String country) {
+            this.country = country;
         }
     }
 }

@@ -41,4 +41,8 @@ public class EmojiUserService {
     public EmojiUser getById(Long id) {
         return repository.getById(id);
     }
+
+    public EmojiUser updateProfile(EmojiUser me) {
+        return repository.save(me);
+    }
 }

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import EmojiInputBox from "./EmojiInputBox";
 import ReactGA from "react-ga";
 import Spinner from "./Spinner";
+import {Link} from "react-router-dom";
 
 
 export default class Friends extends Component {
@@ -85,11 +86,9 @@ export default class Friends extends Component {
                 <div className="post">
                     <h2>📇 友達一覧</h2>
                     <div className="post">
-                        <ul>
-                            {this.state.friendList.map(friend => (
-                                <li>{friend.name}</li>
-                            ))}
-                        </ul>
+                        {this.state.friendList.map(friend => (
+                            <Link to={`/user/${friend.id}`} className="friendIcon">{friend.name}</Link>
+                        ))}
                         {this.state.loading && <Spinner/>}
                     </div>
                 </div>

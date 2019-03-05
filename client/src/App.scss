@@ -108,8 +108,8 @@ h2 {
 
   .change {
     .bar1 {
-      -webkit-transform: rotate(-45deg) translate(-13px, 0);
-      transform: rotate(-45deg) translate(-13px, 0);
+      -webkit-transform: rotate(-45deg) translate(-7px, 6px);
+      transform: rotate(-45deg) translate(-7px, 6px);
     }
 
     .bar2 {
@@ -117,8 +117,8 @@ h2 {
     }
 
     .bar3 {
-      -webkit-transform: rotate(45deg) translate(-13px, 0);
-      transform: rotate(45deg) translate(-13px, 0);
+      -webkit-transform: rotate(45deg) translate(-7px, -6px);
+      transform: rotate(45deg) translate(-7px, -6px);
     }
   }
 }
@@ -195,6 +195,7 @@ div.title2 {
     margin: 10px 0 0;
     box-shadow: none;
   }
+
   .postHeader {
     padding: 5px 20px;
     font-size: 14px;
@@ -208,15 +209,25 @@ div.title2 {
     border-bottom: none;
     color: white;
     font-weight: bold;
+    background: #888;
+
     &.error {
       background: #ff5c5c;
     }
+
     &.info {
       background: #5885e0;
     }
+
     &.success {
       background: #54b354;
     }
+  }
+
+  .formRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
 
@@ -246,6 +257,20 @@ div.title2 {
     margin-left: auto;
     margin-right: auto;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.friendIcon {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  text-decoration: none;
+  display: inline-block;
+  margin: 5px;
+
+  &:hover {
+    border: 1px solid black;
+    background: #eee;
   }
 }
 
@@ -296,7 +321,7 @@ label {
   align-items: baseline;
 }
 
-.inputBox {
+.inputBox, input {
   flex-grow: 1;
   height: 24px;
   width: auto;
@@ -310,30 +335,46 @@ label {
 }
 
 select {
-  border: 1px solid #aaa;
   width: 100%;
   font-size: 24px;
   padding: 5px;
+  background: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px #ddd inset;
 }
 
-ul {
-  margin: 0;
-  list-style: square;
+select.countryCode {
+  width: 150px;
+  font-family: monospace;
+
+  option {
+    font-family: monospace;
+  }
 }
 
 .selectContainer {
   display: flex;
   flex-direction: row;
+  align-items: center;
 
-  select {
+  select, input {
     border-radius: 5px 0 0 5px;
-    border-right: none;
   }
 
   button {
-    border-radius: 0 5px 5px 0;
+    border-radius: 0;
     box-shadow: none;
+    border-left: none;
+
+    &:last-of-type {
+      border-radius: 0 5px 5px 0;
+    }
   }
+}
+
+ul {
+  margin: 0;
+  list-style: square;
 }
 
 .clearButton {
@@ -444,6 +485,7 @@ button, .buttonLink {
     transform: rotate(720deg);
   }
 }
+
 @-webkit-keyframes circles-loader {
   0% {
     -webkit-transform: rotate(-720deg);
@@ -454,6 +496,7 @@ button, .buttonLink {
     transform: rotate(720deg);
   }
 }
+
 @keyframes circles-loader {
   0% {
     -moz-transform: rotate(-720deg);
@@ -468,6 +511,7 @@ button, .buttonLink {
     transform: rotate(720deg);
   }
 }
+
 /* :not(:required) hides this rule from IE9 and below */
 .circles-loader:not(:required) {
   position: relative;
@@ -486,6 +530,7 @@ button, .buttonLink {
   transform-origin: 50% 100%;
   margin: 20px auto;
 }
+
 .circles-loader:not(:required)::before {
   background: rgba(255, 102, 0, 0.6);
   border-radius: 100%;
@@ -496,6 +541,7 @@ button, .buttonLink {
   top: 18.75px;
   left: -10.82532px;
 }
+
 .circles-loader:not(:required)::after {
   background: rgba(255, 51, 0, 0.4);
   border-radius: 100%;

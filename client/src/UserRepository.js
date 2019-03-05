@@ -34,4 +34,16 @@ export default class UserRepository {
             cache: "no-cache"
         });
     }
+
+    update(userDetails) {
+        const body = JSON.stringify(userDetails);
+        const headers = {'Content-Type': 'application/json'};
+        return fetch('/user-details', {
+            method: 'POST',
+            headers,
+            body,
+            credentials: "same-origin",
+            cache: "no-cache"
+        });
+    }
 }

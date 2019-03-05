@@ -84,7 +84,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //Actually Spring already configures default AuthenticationEntryPoint - LoginUrlAuthenticationEntryPoint
                 //This one is REST-specific addition to default one, that is based on PathRequest
                 .defaultAuthenticationEntryPointFor(getRestAuthenticationEntryPoint(), new AntPathRequestMatcher("/api/**"))
-                .defaultAuthenticationEntryPointFor(new RedirectEntryPoint(), new AntPathRequestMatcher("/**"))
+//                .defaultAuthenticationEntryPointFor(new RedirectEntryPoint(), new AntPathRequestMatcher("/**"))
                 .accessDeniedPage("/signin");
         http.sessionManagement()
                 .invalidSessionUrl("/signin");

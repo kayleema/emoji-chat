@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import EmojiInputBox from "./EmojiInputBox";
 import ReactGA from "react-ga";
+import Spinner from "./Spinner";
 
 export default class Login extends Component {
     constructor(props) {
@@ -10,6 +11,7 @@ export default class Login extends Component {
             username: '',
             password: '',
             error: false,
+            loading: false,
         }
     }
 
@@ -20,28 +22,11 @@ export default class Login extends Component {
     onSubmit(e) {
         console.log(e.target);
         e.preventDefault();
-        // const formData = new FormData(e.target);
-        // console.log(formData);
-        // formData.append("username", this.state.username);
-        // formData.append("password", this.state.password);
-        //
-        // const body = "username=" + this.state.username + "&password=" + this.state.password;
-        //
-        // const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-        // fetch('/login', {method: 'POST', headers, body})
-        //     .then(result => {
-        //         if (result.status === 200) {
-        //             this.props.history.push('/');
-        //         } else {
-        //             this.setState({error: true});
-        //         }
-        //     });
-
-
         this.login();
     }
 
     login() {
+        this.setState({loading: true})
         console.log('logging in');
         const body = JSON.stringify({
             username: this.state.username,
@@ -53,19 +38,29 @@ export default class Login extends Component {
         })
             .then(result => {
                 if (result.ok) {
+                    console.log({loginStatus: result.status});
                     return result.json();
                 } else {
-                    this.setState({error: true});
-                    console.log('login errror');
                     throw Error(result.statusText);
                 }
-            }).then(json => {
+            })
+            .then(json => {
                 console.log('login result', json);
                 this.props.history.push('/');
+            })
+            .catch(() => {
+                this.setState({
+                    error: true,
+                    loading: false
+                });
+                console.log('login errror');
             });
     }
 
     render() {
+        if (this.state.loading) {
+            return <Spinner/>;
+        }
         return (
             <div className="page">
                 <form className="register" onSubmit={this.onSubmit.bind(this)} action="/login" method="post">

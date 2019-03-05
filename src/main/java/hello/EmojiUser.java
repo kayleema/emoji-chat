@@ -30,6 +30,8 @@ public class EmojiUser implements Serializable {
     @JsonIgnore
     private String password;
 
+    private String country;
+
     public void setPassword(String password) {
         this.password = PASSWORD_ENCODER.encode(password);
     }
