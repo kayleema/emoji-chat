@@ -9,6 +9,8 @@ export default class Chat extends Component {
         this.state = {
             messages: [],
             messageToSend: "",
+            connecting: true,
+            disconnected: false,
         };
         this.chatSocket = new ChatSocket();
     }
@@ -16,7 +18,9 @@ export default class Chat extends Component {
     componentDidMount() {
         const id = this.props.match.params.id;
         this.chatSocket.setNewMessageCallback(this.newMessage.bind(this));
-        this.chatSocket.setChatInitializerCallback(this.chatInitializerCallback.bind(this))
+        this.chatSocket.setChatInitializerCallback(this.chatInitializerCallback.bind(this));
+        this.chatSocket.setConnectCallback(this.chatConnectCallback.bind(this));
+        this.chatSocket.setDisconnectCallback(this.chatDisconnectCallback.bind(this));
         this.chatSocket.connect(id);
         ReactGA.pageview("/chat");
     }
@@ -36,6 +40,15 @@ export default class Chat extends Component {
             messages: messageList
                 .sort((a, b) => (a.createdDate > b.createdDate) ? -1 : 1)
         });
+    }
+
+    chatConnectCallback() {
+        this.setState({connecting: false, disconnected: false})
+    }
+
+    chatDisconnectCallback() {
+        console.log('disconnexcteddddddd! 大変〜')
+        this.setState({disconnected: true});
     }
 
     onSendMessage() {
@@ -58,6 +71,15 @@ export default class Chat extends Component {
                     />
                 </div>
                 <div className="post">
+                    {this.state.disconnected && (
+                        <div className="postHeader error">つながっていません</div>
+                    )}
+                    {this.state.connecting && (
+                        <div className="postHeader info">Ｃｏｎｎｅｃｔｉｎｇ…</div>
+                    )}
+                    {!this.state.connecting && !this.state.disconnected && (
+                        <div className="postHeader success">繋がっています</div>
+                    )}
                     {this.state.messages.map(message =>
                         <p key={message.id}>
                             <span className="author">{message.from.name}</span>

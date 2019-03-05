@@ -5,10 +5,17 @@ export default class Post extends Component {
         super(props);
     }
 
+    clickAuthor() {
+        this.props.history.push('/username-redirect/' + this.props.post.createdBy);
+    }
+
     render() {
         return (
             <div className="post">
-                <span className="author">
+                <span
+                    className="author"
+                    onClick={this.clickAuthor.bind(this)}
+                >
                     {this.props.post.createdBy}
                 </span>
                 ：

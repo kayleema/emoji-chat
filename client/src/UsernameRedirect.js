@@ -1,23 +1,21 @@
 import React, {Component} from 'react';
-import ReactGA from "react-ga";
 import Spinner from "./Spinner";
 
 
-export default class Me extends Component {
+export default class UsernameRedirect extends Component {
     constructor(props) {
         super(props);
     }
 
     componentDidMount() {
-        this.loadFriendList();
-        ReactGA.pageview("/me");
-    }
-
-    loadFriendList() {
-        fetch('/user-details/', {method: 'GET', credentials: "same-origin", cache: "no-cache",})
+        fetch(`/username-lookup/${this.props.match.params.username}`, {
+            method: 'GET',
+            credentials: "same-origin",
+            cache: "no-cache",
+        })
             .then(result => {
                 if (result.status !== 200) {
-                    this.props.history.push('signin');
+                    console.log(result);
                     return;
                 }
                 return result.json();
@@ -26,6 +24,7 @@ export default class Me extends Component {
                 this.props.history.push(`/user/${json.id}`)
             });
     }
+
     render() {
         return (
             <div>

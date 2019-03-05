@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ReactGA from "react-ga";
+import Spinner from "./Spinner";
 
 export default class Message extends Component {
     constructor(props) {
@@ -7,6 +8,7 @@ export default class Message extends Component {
         this.state = {
             friendList: [],
             conversations: [],
+            loading: true,
         }
     }
 
@@ -40,7 +42,8 @@ export default class Message extends Component {
             .then(json => {
                 console.log(json);
                 this.setState({
-                    conversations: json
+                    conversations: json,
+                    loading: false,
                 });
             });
     }
@@ -62,6 +65,7 @@ export default class Message extends Component {
                 </div>
                 <div className="post buttonList">
                     <h2>チャット一覧</h2>
+                    {this.state.loading && <Spinner/>}
                     {this.state.conversations.map(conversation => (
                         <button
                             key={conversation.id}

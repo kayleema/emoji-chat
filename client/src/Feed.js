@@ -3,6 +3,7 @@ import 'emoji-mart/css/emoji-mart.css'
 import EmojiInputBox from "./EmojiInputBox";
 import Post from "./Post";
 import ReactGA from "react-ga";
+import Spinner from "./Spinner";
 
 const SockJS = require('sockjs-client'); // <1>
 const StompJs = require('@stomp/stompjs'); // <2>
@@ -15,7 +16,8 @@ export default class Feed extends Component {
 
         this.state = {
             posts: [],
-            message: ''
+            message: '',
+            loading: true,
         }
     }
 
@@ -40,6 +42,7 @@ export default class Feed extends Component {
             })
             .then((data) => (data._embedded.posts))
             .then(posts => this.setState({
+                loading: false,
                 posts: posts.sort((a, b) => (a.createdDate > b.createdDate) ? -1 : 1)
             }));
     }
@@ -122,8 +125,9 @@ export default class Feed extends Component {
                     />
                 </div>
                 {this.state.posts.map((post, index) => (
-                    <Post key={index} post={post}/>
+                    <Post key={index} post={post} history={this.props.history}/>
                 ))}
+                {(this.state.loading) && <Spinner/>}
             </div>
         );
     }

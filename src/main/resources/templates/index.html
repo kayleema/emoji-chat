@@ -4,10 +4,78 @@
 <head lang="en">
     <meta charset="UTF-8"/>
     <title>絵文字タイム EmojiTime!</title>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-9272561114330078",
+            enable_page_level_ads: true
+        });
+    </script>
+    <style>
+        .spinner-loader:not(:required) {
+            animation: spinner-loader 3000ms infinite linear;
+            border-radius: 100%;
+            box-shadow:
+                    hsla(0, 100%, 50%, 0.3) 3em 0 0 0,
+                    hsla(45, 100%, 50%, 0.3) 2.2em 2.2em 0 0,
+                    hsla(90, 100%, 50%, 0.3) 0 3em 0 0,
+                    hsla(135, 100%, 50%, 0.3) -2.2em 2.2em 0 0,
+                    hsla(180, 100%, 50%, 0.3) -3em 0 0 0,
+                    hsla(225, 100%, 50%, 0.3) -2.2em -2.2em 0 0,
+                    hsla(270, 100%, 50%, 0.3) 0 -3em 0 0,
+                    hsla(315, 100%, 50%, 0.3) 2.2em -2.2em 0 0;
+            font-size: 10px;
+            width: 20px;
+            height: 20px;
+            overflow: hidden;
+            text-indent: 100%;
+            margin: 100px auto;
+            display: block;
+        }
+        @keyframes spinner-loader {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        .loading {
+            text-align: center;
+            display: block;
+            font-family: sans-serif;
+            color: hsla(90, 100%, 50%, 1);
+            margin: 0 auto;
+            font-size: 16px;
+            animation: loading 1000ms infinite ease-in-out;
+        }
+        @keyframes loading {
+            0% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 1.0;
+            }
+            100% {
+                opacity: 0.3;
+            }
+        }
+        .shibaraku {
+            color: hsla(180, 100%, 50%, 1);
+            margin-top: 50px;
+            animation-delay:5s;
+            opacity: 0;
+        }
+    </style>
 </head>
 <body>
 
-<div id="root"></div>
+<div id="root">
+    <span class="spinner-loader"></span>
+    <div class="loading">ロード中…</div>
+    <div class="loading shibaraku">しばらくお待ちください…</div>
+</div>
 
 <script src="/built/bundle.js"></script>
 

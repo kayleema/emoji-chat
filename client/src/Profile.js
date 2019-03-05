@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ReactGA from "react-ga";
 import UserRepository from "./UserRepository";
+import Spinner from "./Spinner";
 
 export default class Profile extends Component {
     constructor(props) {
@@ -8,7 +9,7 @@ export default class Profile extends Component {
 
         this.state = {
             profile: null,
-            myDetails: null,
+            myDetails: null
         };
 
         this.userDetailsRepo = new UserRepository();
@@ -25,7 +26,10 @@ export default class Profile extends Component {
                 }
             })
             .then(json => {
-                this.setState({profile: json});
+                this.setState({
+                    profile: json,
+                    loading: false,
+                });
             });
 
         this.loadMyDetails();
@@ -43,6 +47,10 @@ export default class Profile extends Component {
             .then(json => {
                 this.setState({myDetails: json});
             });
+    }
+
+    isLoading() {
+        return !(this.state.myDetails && this.state.profile);
     }
 
     shouldShowAddFriend() {
@@ -82,6 +90,11 @@ export default class Profile extends Component {
 
     render() {
         const id = this.props.match.params.id;
+        if (this.isLoading()) {
+            return (
+                <Spinner/>
+            )
+        }
         return (
             <div>
                 <div className="profileCover">
@@ -98,7 +111,7 @@ export default class Profile extends Component {
                 {/*)}*/}
                 {this.isSelfAccount() && (
                     <div className="post">
-                        シェアするためのURL：<br/>
+                        URL：<br/>
                         <em>https://emoji.kaylee.jp/user/{this.props.match.params.id}</em>
                     </div>
                 )}

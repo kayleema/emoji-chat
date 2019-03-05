@@ -1,5 +1,5 @@
-const SockJS = require('sockjs-client');
-const StompJs = require('@stomp/stompjs');
+import SockJS from "sockjs-client"
+import { Client, Message } from '@stomp/stompjs';
 
 export default class ChatSocket {
     constructor() {
@@ -10,17 +10,26 @@ export default class ChatSocket {
     connect(conversationId) {
         this.conversationId = conversationId;
 
-        const hostname = window.location.hostname;
-        let ws;
-        if (hostname === 'emoji.kaylee.jp') {
-            ws = new SockJS(`https://${hostname}:4443/posts`)
-        } else {
-            ws = new SockJS('/posts');
-        }
-        console.log('websocket', ws);
-        this.client = StompJs.Stomp.over(ws);
+        this.client = new Client({
+            debug: function (str) {
+                console.log(str);
+            },
+            reconnectDelay: 5000,
+        });
+        this.client.webSocketFactory = () => {
+            const hostname = window.location.hostname;
+            if (hostname === 'emoji.kaylee.jp') {
+                return new SockJS(`https://${hostname}:4443/posts`)
+            } else {
+                return new SockJS('/posts');
+            }
+        };
+
+        console.log(this.client);
 
         this.client.onConnect = this.onSocketConnect.bind(this);
+        this.client.onDisconnect = this.onSocketDisconnect.bind(this);
+        this.client.onWebSocketClose = this.onSocketDisconnect.bind(this);
 
         this.client.onStompError = function (frame) {
             // Will be invoked in case of error encountered at Broker
@@ -40,6 +49,14 @@ export default class ChatSocket {
 
     setChatInitializerCallback(callback) {
         this.chatInitializerCallback = callback;
+    }
+
+    setConnectCallback(callback) {
+        this.connectCallback = callback;
+    }
+
+    setDisconnectCallback(callback) {
+        this.disconnectCallback = callback;
     }
 
     newPostMessage(message) {
@@ -62,6 +79,15 @@ export default class ChatSocket {
         let subscriptionB = this.client.subscribe(`/topic/messages/${this.conversationId}`, this.newPostMessage.bind(this));
         let subscriptionS = this.client.subscribe(`/app/messages/${this.conversationId}`, this.newHistory.bind(this));
         console.log('subscriptions: ', subscriptionB, subscriptionS);
+
+        if (this.connectCallback) {
+            this.connectCallback();
+        }
+    }
+    onSocketDisconnect() {
+        if (this.disconnectCallback) {
+            this.disconnectCallback();
+        }
     }
 
     sendMessage(message) {

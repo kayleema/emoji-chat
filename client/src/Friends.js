@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import EmojiInputBox from "./EmojiInputBox";
 import ReactGA from "react-ga";
+import Spinner from "./Spinner";
 
 
 export default class Friends extends Component {
@@ -8,7 +9,9 @@ export default class Friends extends Component {
         super(props);
         this.state = {
             search: '',
-            friendList: []
+            friendList: [],
+            loading: true,
+            loadingSearch: false,
         }
     }
 
@@ -28,14 +31,18 @@ export default class Friends extends Component {
             })
             .then(json => {
                 this.setState({
-                    friendList: json.friend
+                    friendList: json.friend,
+                    loading: false,
                 });
             });
     }
 
     onSearch(e) {
         e.preventDefault();
-        this.setState({search: ''});
+        this.setState({
+            search: '',
+            loadingSearch: true
+        });
         fetch('/user-search/' + this.state.search,
             {method: 'GET', credentials: "same-origin", cache: "no-cache"})
             .then(result => {
@@ -43,7 +50,8 @@ export default class Friends extends Component {
                     return result.json();
                 } else {
                     this.setState({
-                        searchResults: []
+                        searchResults: [],
+                        loadingSearch: false
                     });
                 }
             })
@@ -51,7 +59,8 @@ export default class Friends extends Component {
                 console.log(json);
                 if (json) {
                     this.setState({
-                        searchResults: [json]
+                        searchResults: [json],
+                        loadingSearch: false
                     });
                 }
             });
@@ -81,6 +90,7 @@ export default class Friends extends Component {
                                 <li>{friend.name}</li>
                             ))}
                         </ul>
+                        {this.state.loading && <Spinner/>}
                     </div>
                 </div>
                 <div className="post">
@@ -92,23 +102,22 @@ export default class Friends extends Component {
                         buttonText="🕵🏻‍♀️🔍"
                         onButtonClick={this.onSearch.bind(this)}
                     />
-                    {(this.state.searchResults && this.state.searchResults.length > 0) && (
-                        <div className="post">
-                            {this.state.searchResults.map((user) => (
+                    <div className="post">
+                        {(this.state.searchResults && this.state.searchResults.length > 0) && (
+                            this.state.searchResults.map((user) => (
                                 <p key={user.name}>
                                     {user.name}&nbsp;&nbsp;
                                     <button onClick={() => this.onClickAddFriend(user.name)}>➕👫追加</button>
                                 </p>
-                            ))}
-                        </div>
-                    )}
-                    {(this.state.searchResults && this.state.searchResults.length === 0) && (
-                        <div className="post">
+                            ))
+                        )}
+                        {(this.state.searchResults && this.state.searchResults.length === 0) && (
                             <p className="error">
                                 🙅🈳💨🈚
                             </p>
-                        </div>
-                    )}
+                        )}
+                        {this.state.loadingSearch && <Spinner/>}
+                    </div>
                 </div>
                 <button onClick={() => {
                     this.props.history.push('/');

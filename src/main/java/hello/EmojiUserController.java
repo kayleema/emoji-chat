@@ -55,6 +55,12 @@ public class EmojiUserController {
         return this.service.getById(userid);
     }
 
+    @RequestMapping(value = "/username-lookup/{username}", method = RequestMethod.GET)
+    @ResponseBody
+    public EmojiUser userProfile(final HttpServletRequest request, @PathVariable("username") String username) {
+        return this.service.findByName(username);
+    }
+
     @RequestMapping(value = "/add-friend", method = RequestMethod.POST)
     @ResponseBody
     public AddFriendDto addFriend( @RequestBody AddFriendDto addFriendDto, final HttpServletRequest request) {
