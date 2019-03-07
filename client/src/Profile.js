@@ -175,23 +175,23 @@ export default class Profile extends Component {
                             <br/><br/>
                         </div>
                         <div className="formRow">
-                            <FacebookShareButton url={this.getUrl} quote="絵文字タイムに私をフォローしませんか。絵文字しか使えないSNSです。">
-                                <FacebookIcon round={true} size="30px"/>
+                            <FacebookShareButton url={this.getUrl()} quote="絵文字タイムに私をフォローしませんか。絵文字しか使えないSNSです。">
+                                <FacebookIcon round={true} size={30}/>
                             </FacebookShareButton>
-                            <TwitterShareButton url={this.getUrl} title="絵文字タイム" hashtags={["emoji"]}>
-                                <TwitterIcon round={true} size="30px"/>
+                            <TwitterShareButton url={this.getUrl()} title="絵文字タイム" hashtags={["emoji"]}>
+                                <TwitterIcon round={true} size={30}/>
                             </TwitterShareButton>
-                            <LineShareButton url={this.getUrl} title="絵文字タイム">
-                                <LineIcon round={true} size="30px"/>
+                            <LineShareButton url={this.getUrl()} title="絵文字タイム">
+                                <LineIcon round={true} size={30}/>
                             </LineShareButton>
-                            <EmailShareButton url={this.getUrl} subject="絵文字タウム" body="絵文字タイムに私をフォローしませんか。絵文字しか使えないSNSです。">
-                                <EmailIcon round={true} size="30px"/>
+                            <EmailShareButton url={this.getUrl()} subject="絵文字タウム" body="絵文字タイムに私をフォローしませんか。絵文字しか使えないSNSです。">
+                                <EmailIcon round={true} size={30}/>
                             </EmailShareButton>
-                            <GooglePlusShareButton url={this.getUrl}>
-                                <GooglePlusIcon round={true} size="30px"/>
+                            <GooglePlusShareButton url={this.getUrl()}>
+                                <GooglePlusIcon round={true} size={30}/>
                             </GooglePlusShareButton>
-                            <LinkedinShareButton url={this.getUrl} title="絵文字タウム" description="絵文字タイムに私をフォローしませんか。絵文字しか使えないSNSです。">
-                                <LinkedinIcon round={true} size="30px"/>
+                            <LinkedinShareButton url={this.getUrl()} title="絵文字タウム" description="絵文字タイムに私をフォローしませんか。絵文字しか使えないSNSです。">
+                                <LinkedinIcon round={true} size={30}/>
                             </LinkedinShareButton>
                         </div>
                     </div>

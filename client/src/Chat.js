@@ -72,13 +72,13 @@ export default class Chat extends Component {
                 </div>
                 <div className="post">
                     {this.state.disconnected && (
-                        <div className="postHeader error">つながっていません</div>
+                        <div className="postHeader error">接続できません</div>
                     )}
                     {this.state.connecting && (
-                        <div className="postHeader info">Ｃｏｎｎｅｃｔｉｎｇ…</div>
+                        <div className="postHeader info">接続中…</div>
                     )}
                     {!this.state.connecting && !this.state.disconnected && (
-                        <div className="postHeader success">繋がっています</div>
+                        <div className="postHeader success">接続</div>
                     )}
                     {this.state.messages.map(message =>
                         <p key={message.id}>

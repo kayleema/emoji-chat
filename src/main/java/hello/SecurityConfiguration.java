@@ -26,6 +26,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static java.lang.System.getenv;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -53,6 +55,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        if (getenv("FORCE_HTTPS") != null) {
+            http.requiresChannel().anyRequest().requiresSecure();
+        }
         http
 //                .addFilterBefore(new AccessDeniedFilter(), FilterSecurityInterceptor.class)
                 .authorizeRequests()
@@ -67,6 +72,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/signin",
                         "/built/**",
                         "/images/**",
+                        "/chat/**",
                         "/user/login",
                         "/favicon.ico")
                 .permitAll()

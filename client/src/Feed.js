@@ -61,9 +61,10 @@ export default class Feed extends Component {
 
     realtimeSetup() {
         const hostname = window.location.hostname;
+        const protocol = window.location.protocol;
         let ws;
         if (hostname === 'emoji.kaylee.jp') {
-            ws = new SockJS(`https://${hostname}:4443/posts`)
+            ws = new SockJS(`${protocol}//${hostname}:4443/posts`)
         } else {
             ws = new SockJS('/posts');
         }

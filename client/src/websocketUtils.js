@@ -18,8 +18,9 @@ export default class ChatSocket {
         });
         this.client.webSocketFactory = () => {
             const hostname = window.location.hostname;
+            const protocol = window.location.protocol;
             if (hostname === 'emoji.kaylee.jp') {
-                return new SockJS(`https://${hostname}:4443/posts`)
+                return new SockJS(`${protocol}//${hostname}:4443/posts`)
             } else {
                 return new SockJS('/posts');
             }
