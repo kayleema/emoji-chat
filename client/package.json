@@ -5,7 +5,7 @@
   "dependencies": {
     "@stomp/stompjs": "^5.2.0",
     "country-code-emoji": "^1.0.0",
-    "emoji-mart": "^2.9.2",
+    "emoji-mart": "github:kayleemann/emoji-mart",
     "es6-promise": "^4.2.6",
     "isomorphic-fetch": "^2.2.1",
     "react": "^16.8.2",

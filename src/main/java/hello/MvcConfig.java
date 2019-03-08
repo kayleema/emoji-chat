@@ -14,13 +14,10 @@ public class MvcConfig implements WebMvcConfigurer {
 //    }
 
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Resources without Spring Security. No cache control response headers.
         registry.addResourceHandler("/built/**")
                 .addResourceLocations("classpath:/static/built/")
                 .setCachePeriod(-1);
 
-        // Resources controlled by Spring Security, which
-        // adds "Cache-Control: must-revalidate".
         registry.addResourceHandler("/images/**")
                 .addResourceLocations("classpath:/static/images/")
                 .setCachePeriod(-1);

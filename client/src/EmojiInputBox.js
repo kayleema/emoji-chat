@@ -51,7 +51,7 @@ export default class EmojiInputBox extends Component {
                                 }
                             }}
                             emojiTooltip={false}
-                            showPreview={true}
+                            showPreview={false}
                             showSkinTones={true}
                         />
                 )}

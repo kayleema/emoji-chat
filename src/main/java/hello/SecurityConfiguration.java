@@ -64,7 +64,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/registration",
                         "/home",
-                        "/",
+//                        "/",
                         "/friend",
                         "/message",
                         "/message/**",
@@ -90,7 +90,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //Actually Spring already configures default AuthenticationEntryPoint - LoginUrlAuthenticationEntryPoint
                 //This one is REST-specific addition to default one, that is based on PathRequest
                 .defaultAuthenticationEntryPointFor(getRestAuthenticationEntryPoint(), new AntPathRequestMatcher("/api/**"))
-//                .defaultAuthenticationEntryPointFor(new RedirectEntryPoint(), new AntPathRequestMatcher("/**"))
+                .defaultAuthenticationEntryPointFor(new RedirectEntryPoint(), new AntPathRequestMatcher("/"))
                 .accessDeniedPage("/signin");
         http.sessionManagement()
                 .invalidSessionUrl("/signin");
@@ -128,7 +128,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                    .println("{\"msg\":\"API User needs Login. Please Register and Try Again...\"}");
 
             RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-            redirectStrategy.sendRedirect(request, response, "/signin");
+            redirectStrategy.sendRedirect(request, response, "/home");
         }
     }
 }
