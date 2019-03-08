@@ -1,4 +1,7 @@
 $darkAccent: #282c34;
+$colorError: #ff5c5c;
+$colorInfo: #5885e0;
+$colorSuccess: #54b354;
 
 body {
   background-color: #eee;
@@ -74,7 +77,7 @@ h2 {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    font-size: calc(10px + 2vmin);
+    font-size: 24px;
     color: white;
     padding: 10px;
   }
@@ -176,11 +179,59 @@ div.title2 {
   color: #61dafb;
 }
 
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.01;
+    //height: auto;
+    //padding: 5px;
+    //border-bottom-style: solid;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    //height:0;
+    //padding:0;
+    //border-style:none;
+  }
+}
+
+.status {
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 5px 10px;
+  text-align: center;
+
+  &.error {
+    background: $colorError;
+  }
+
+  &.info {
+    background: $colorInfo;
+    border-bottom: 4px solid darken($colorInfo, 5);
+  }
+
+  &.success {
+    background: $colorSuccess;
+    border-bottom: 4px solid darken($colorSuccess, 5);
+  }
+
+  &.fadeout {
+    animation: fadeOut 5s;
+    animation-fill-mode: forwards;
+  }
+}
+
 .page {
   max-width: 600px;
   margin: 0 auto;
 }
-
 
 .post {
   padding: 20px;
@@ -212,15 +263,15 @@ div.title2 {
     background: #888;
 
     &.error {
-      background: #ff5c5c;
+      background: $colorError;
     }
 
     &.info {
-      background: #5885e0;
+      background: $colorInfo;
     }
 
     &.success {
-      background: #54b354;
+      background: $colorSuccess;
     }
   }
 
@@ -425,6 +476,12 @@ button, .buttonLink {
     box-shadow: none;
   }
 }
+
+//@media (hover: none) {
+//  .emoji-mart-category .emoji-mart-emoji:hover:before {
+//    content: normal !important;
+//  }
+//}
 
 .buttonTransparent {
   background: none;

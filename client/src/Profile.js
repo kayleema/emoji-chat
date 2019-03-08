@@ -252,8 +252,8 @@ export default class Profile extends Component {
                 {this.state.profile && (
                     <div className="post">
                         <h2>{this.state.profile.name}の👫友達一覧</h2>
-                        {(this.state.profile.friend.length === 0) && "〜🈳〜"}
                         <div className="post">
+                            {(this.state.profile.friend.length === 0) && "〜🈳〜"}
                             {this.state.profile.friend.map(friend => (
                                 <Link key={friend.id} to={`/user/${friend.id}`} className="friendIcon">
                                     {friend.name}

@@ -4,9 +4,7 @@ import EmojiInputBox from "./EmojiInputBox";
 import Post from "./Post";
 import ReactGA from "react-ga";
 import Spinner from "./Spinner";
-
-const SockJS = require('sockjs-client'); // <1>
-const StompJs = require('@stomp/stompjs'); // <2>
+import {FeedSocket} from "./websocketUtils";
 
 export default class Feed extends Component {
     constructor(props) {
@@ -18,7 +16,9 @@ export default class Feed extends Component {
             posts: [],
             message: '',
             loading: true,
-        }
+        };
+
+        this.feedSocket = new FeedSocket();
     }
 
     componentDidMount() {
@@ -28,7 +28,10 @@ export default class Feed extends Component {
     }
 
     componentWillUnmount() {
-        this.client.deactivate();
+        this.feedSocket.setConnectCallback(null);
+        this.feedSocket.setDisconnectCallback(null);
+        this.feedSocket.setNewPostCallback(null);
+        this.feedSocket.deactivate();
     }
 
     getPosts() {
@@ -53,35 +56,18 @@ export default class Feed extends Component {
     }
 
     onSocketConnect(frame) {
-        console.log('connected', frame);
+        this.setState({connected: true, error: false});
+    }
 
-        let subscription = this.client.subscribe('/topic/newPost', this.newPostMessage.bind(this));
-        console.log('subscription', subscription);
+    onSocketDisconnect() {
+        this.setState({connected: false});
     }
 
     realtimeSetup() {
-        const hostname = window.location.hostname;
-        const protocol = window.location.protocol;
-        let ws;
-        if (hostname === 'emoji.kaylee.jp') {
-            ws = new SockJS(`${protocol}//${hostname}:4443/posts`)
-        } else {
-            ws = new SockJS('/posts');
-        }
-        this.client = StompJs.Stomp.over(ws);
-
-        this.client.onConnect = this.onSocketConnect.bind(this);
-
-        this.client.onStompError = function (frame) {
-            // Will be invoked in case of error encountered at Broker
-            // Bad login/passcode typically will cause an error
-            // Complaint brokers will set `message` header with a brief message. Body may contain details.
-            // Compliant brokers will terminate the connection after any error
-            console.log('Broker reported error: ' + frame.headers['message']);
-            console.log('Additional details: ' + frame.body);
-        };
-
-        this.client.activate();
+        this.feedSocket.setConnectCallback(this.onSocketConnect.bind(this));
+        this.feedSocket.setDisconnectCallback(this.onSocketDisconnect.bind(this));
+        this.feedSocket.setNewPostCallback(this.newPostMessage.bind(this));
+        this.feedSocket.connect();
     }
 
     onSubmit(e) {
@@ -114,7 +100,24 @@ export default class Feed extends Component {
     }
 
     render() {
-        return (
+        return [
+            <div>
+                {this.state.connected && (
+                    <div className="status success fadeout">
+                        接続されました
+                    </div>
+                )}
+                {!this.state.connected && (
+                    <div className="status info">
+                        接続中
+                    </div>
+                )}
+                {this.state.error && (
+                    <div className="status error fadeout">
+                        エラー
+                    </div>
+                )}
+            </div>,
             <div className="page">
                 <div className="post">
                     <EmojiInputBox
@@ -132,6 +135,6 @@ export default class Feed extends Component {
                     {(this.state.loading) && <Spinner/>}
                 </div>
             </div>
-        );
+        ];
     }
 }

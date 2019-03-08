@@ -28,9 +28,10 @@ export default class EmojiInputBox extends Component {
                         <Picker
                             onSelect={this.props.onSelectEmoji.bind(this)}
                             style={{width: '100%'}}
-                            title='絵文字を選んでください'
-                            emoji='smile_cat'
+                            title=''
+                            emoji=''
                             native={true}
+                            skinEmoji={"hand"}
                             i18n={{
                                 search: '検索',
                                 notfound: '見つけられませんでした',
@@ -51,6 +52,7 @@ export default class EmojiInputBox extends Component {
                             }}
                             emojiTooltip={false}
                             showPreview={true}
+                            showSkinTones={true}
                         />
                 )}
                 {this.state.focused &&

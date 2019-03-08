@@ -17,7 +17,7 @@ export default class Home extends Component {
                     <h2>絵文字しか使えないSNS🌟</h2>
                 </div>
 
-                <div className="post title">
+                <div className="post title" style={{backgroundColor: '#3d361f'}}>
                     <p style={{textAlign: 'center'}}>
                         <Link to="/signin" className="buttonLink buttonTransparent">👋🙋💁 ログイン‍️</Link>
                     </p>

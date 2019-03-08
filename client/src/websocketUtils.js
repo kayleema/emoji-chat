@@ -96,3 +96,82 @@ export default class ChatSocket {
         this.client.publish({destination: `/app/chat/${this.conversationId}`, body: JSON.stringify({text: message})});
     }
 }
+
+
+export class FeedSocket {
+    constructor() {
+        this.newPostCallback = null;
+    }
+
+    connect() {
+        this.client = new Client({
+            debug: function (str) {
+                console.log(str);
+            },
+            reconnectDelay: 5000,
+        });
+        this.client.webSocketFactory = () => {
+            const hostname = window.location.hostname;
+            const protocol = window.location.protocol;
+            if (hostname === 'emoji.kaylee.jp') {
+                return new SockJS(`${protocol}//${hostname}:4443/posts`)
+            } else {
+                return new SockJS('/posts');
+            }
+        };
+
+        console.log(this.client);
+
+        this.client.onConnect = this.onSocketConnect.bind(this);
+        this.client.onDisconnect = this.onSocketDisconnect.bind(this);
+        this.client.onWebSocketClose = this.onSocketDisconnect.bind(this);
+
+        this.client.onStompError = function (frame) {
+            // Will be invoked in case of error encountered at Broker
+            // Bad login/passcode typically will cause an error
+            // Complaint brokers will set `message` header with a brief message. Body may contain details.
+            // Compliant brokers will terminate the connection after any error
+            console.log('Broker reported error: ' + frame.headers['message']);
+            console.log('Additional details: ' + frame.body);
+        };
+
+        this.client.activate();
+    }
+
+    deactivate() {
+        this.client.deactivate();
+    }
+
+    setNewPostCallback(callback) {
+        this.newPostCallback = callback;
+    }
+
+    setConnectCallback(callback) {
+        this.connectCallback = callback;
+    }
+
+    setDisconnectCallback(callback) {
+        this.disconnectCallback = callback;
+    }
+
+    newPost(message) {
+        console.log(message);
+        this.newPostCallback();
+    }
+
+    onSocketConnect(frame) {
+        console.log('connected', frame);
+
+        let subscriptionB = this.client.subscribe("/topic/newPost", this.newPost.bind(this));
+        console.log('subscriptions: ', subscriptionB);
+
+        if (this.connectCallback) {
+            this.connectCallback();
+        }
+    }
+    onSocketDisconnect() {
+        if (this.disconnectCallback) {
+            this.disconnectCallback();
+        }
+    }
+}

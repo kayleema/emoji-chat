@@ -32,6 +32,8 @@ public class EmojiUser implements Serializable {
 
     private String country;
 
+    private String email;
+
     public void setPassword(String password) {
         this.password = PASSWORD_ENCODER.encode(password);
     }
