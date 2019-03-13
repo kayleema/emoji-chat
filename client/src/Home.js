@@ -36,8 +36,9 @@ export default class Home extends Component {
                         <li>🔌 Stomp Websockets</li>
                         <li>🧦 SockJS</li>
                         <li>👢 StompJS</li>
-                        <li>☁️ PWS</li>
-                        <li>🐘 Postgres SQL</li>
+                        <li>🌩️ PWS</li>
+                        <li>🐘 Postgres SQL on ElephantSQL</li>
+                        <li>☁️ CloudFare</li>
                         <li>💁 SASS</li>
                     </ul>
                 </div>

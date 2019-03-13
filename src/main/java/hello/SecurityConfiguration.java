@@ -55,15 +55,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        if (getenv("FORCE_HTTPS") != null) {
-            http.requiresChannel().anyRequest().requiresSecure();
-        }
         http
                 .authorizeRequests()
                 .antMatchers(
                         "/registration",
                         "/home",
-//                        "/",
+                        "/",
                         "/friend",
                         "/message",
                         "/message/**",

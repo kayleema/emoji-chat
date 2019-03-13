@@ -119,6 +119,7 @@ export default class Feed extends Component {
                 )}
             </div>,
             <div className="page">
+                <h2>🌏グローバル掲示板</h2>
                 <div className="post">
                     <EmojiInputBox
                         onSelectEmoji={this.onSelectEmoji.bind(this)}

@@ -93,6 +93,8 @@ public class EmojiUserController {
         }
         SecurityContext sc = SecurityContextHolder.getContext();
         sc.setAuthentication(auth);
+        HttpSession session = request.getSession(true);
+        session.setAttribute(SPRING_SECURITY_CONTEXT_KEY, sc);
         return auth;
     }
 
