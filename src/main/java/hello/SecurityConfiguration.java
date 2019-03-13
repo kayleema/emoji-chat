@@ -59,7 +59,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             http.requiresChannel().anyRequest().requiresSecure();
         }
         http
-//                .addFilterBefore(new AccessDeniedFilter(), FilterSecurityInterceptor.class)
                 .authorizeRequests()
                 .antMatchers(
                         "/registration",
@@ -77,25 +76,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/favicon.ico")
                 .permitAll()
                 .anyRequest().authenticated();
-//        http
-//                .loginPage("/signin")
-//                .successHandler(new JsonAuthenticationSuccessHandler())
-//                .permitAll();
         http
                 .csrf()
                 .disable()
                 .logout()
                 .permitAll();
         http.exceptionHandling()
-                //Actually Spring already configures default AuthenticationEntryPoint - LoginUrlAuthenticationEntryPoint
-                //This one is REST-specific addition to default one, that is based on PathRequest
                 .defaultAuthenticationEntryPointFor(getRestAuthenticationEntryPoint(), new AntPathRequestMatcher("/api/**"))
                 .defaultAuthenticationEntryPointFor(new RedirectEntryPoint(), new AntPathRequestMatcher("/"))
                 .accessDeniedPage("/signin");
         http.sessionManagement()
                 .invalidSessionUrl("/signin");
-        http.requiresChannel()
-                .antMatchers("/**").requiresSecure();
     }
 
     private AuthenticationSuccessHandler successHandler() {
