@@ -6,6 +6,7 @@ gradlew
 gradlew.bat
 out/
 client/dist/
+.DS_Store
 
 src/main/resources/static/built/
 src/main/resources/static/images/

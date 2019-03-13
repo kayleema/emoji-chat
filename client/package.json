@@ -21,7 +21,9 @@
     "build": "webpack -p",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "profile": "webpack -p --profile --json > stats.json",
+    "bundle-report": "webpack-bundle-analyzer --port 4200 ./stats.json"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -37,6 +39,7 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.2",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "css-loader": "^2.1.0",
     "file-loader": "^3.0.1",
     "node-sass": "^4.11.0",
@@ -45,6 +48,7 @@
     "style-loader": "^0.23.1",
     "svg-inline-loader": "^0.8.0",
     "webpack": "^4.29.6",
+    "webpack-bundle-analyzer": "^3.1.0",
     "webpack-cli": "^3.2.3"
   }
 }

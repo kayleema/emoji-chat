@@ -94,6 +94,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .accessDeniedPage("/signin");
         http.sessionManagement()
                 .invalidSessionUrl("/signin");
+        http.requiresChannel()
+                .antMatchers("/**").requiresSecure();
     }
 
     private AuthenticationSuccessHandler successHandler() {

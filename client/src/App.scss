@@ -477,11 +477,11 @@ button, .buttonLink {
   }
 }
 
-//@media (hover: none) {
-//  .emoji-mart-category .emoji-mart-emoji:hover:before {
-//    content: normal !important;
-//  }
-//}
+@media (hover: none) {
+  .emoji-mart-category .emoji-mart-emoji:hover:before {
+    content: normal !important;
+  }
+}
 
 .buttonTransparent {
   background: none;
