@@ -55,6 +55,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.requiresChannel().antMatchers(
+                "/registration",
+                "/home",
+                "/",
+                "/friend",
+                "/message",
+                "/message/**",
+                "/register",
+                "/signin",
+                "/built/**",
+                "/images/**",
+                "/chat/**",
+                "/user/login",
+                "/favicon.ico").requiresSecure();
         http
                 .authorizeRequests()
                 .antMatchers(

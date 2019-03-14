@@ -1,5 +1,5 @@
 import SockJS from "sockjs-client"
-import { Client, Message } from '@stomp/stompjs';
+import {Client, Message} from '@stomp/stompjs';
 
 export default class ChatSocket {
     constructor() {
@@ -16,15 +16,13 @@ export default class ChatSocket {
             },
             reconnectDelay: 5000,
         });
-        this.client.webSocketFactory = () => {
-            const hostname = window.location.hostname;
-            const protocol = window.location.protocol;
-            if (hostname === 'emoji.kaylee.jp' && false) {
-                return new SockJS(`${protocol}//${hostname}:4443/posts`)
-            } else {
-                return new SockJS('/posts');
-            }
-        };
+        const hostname = window.location.hostname;
+        const protocol = window.location.protocol;
+        if (hostname === 'emoji.cfapps.io' || hostname === 'emoji.kaylee.jp') {
+            this.client.brokerURL = `wss://${hostname}:4443/posts`;
+        } else {
+            this.client.brokerURL = `wss://${hostname}/posts`;
+        }
 
         console.log(this.client);
 
@@ -85,6 +83,7 @@ export default class ChatSocket {
             this.connectCallback();
         }
     }
+
     onSocketDisconnect() {
         if (this.disconnectCallback) {
             this.disconnectCallback();
@@ -110,15 +109,13 @@ export class FeedSocket {
             },
             reconnectDelay: 5000,
         });
-        this.client.webSocketFactory = () => {
-            const hostname = window.location.hostname;
-            const protocol = window.location.protocol;
-            if (hostname === 'emoji.kaylee.jp' && false) {
-                return new SockJS(`${protocol}//${hostname}:4443/posts`)
-            } else {
-                return new SockJS('/posts');
-            }
-        };
+        const hostname = window.location.hostname;
+        const protocol = window.location.protocol;
+        if (hostname === 'emoji.cfapps.io' || hostname === 'emoji.kaylee.jp') {
+            this.client.brokerURL = `wss://${hostname}:4443/posts`;
+        } else {
+            this.client.brokerURL = `wss://${hostname}/posts`;
+        }
 
         console.log(this.client);
 
@@ -169,6 +166,7 @@ export class FeedSocket {
             this.connectCallback();
         }
     }
+
     onSocketDisconnect() {
         if (this.disconnectCallback) {
             this.disconnectCallback();

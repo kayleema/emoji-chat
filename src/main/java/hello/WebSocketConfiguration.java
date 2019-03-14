@@ -16,21 +16,16 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/posts")
-//                .setAllowedOrigins("*")
                 .setAllowedOrigins(
                         "https://localhost:8080",
                         "https://emoji.kaylee.jp",
-                        "https://emoji.kaylee.jp:4443"
-                )
-                .withSockJS();
-        registry.addEndpoint("/chat")
-//                .setAllowedOrigins("*")
-                .setAllowedOrigins(
-                        "https://localhost:8080",
-                        "https://emoji.kaylee.jp",
-                        "https://emoji.kaylee.jp:4443"
-                )
-                .withSockJS();
+                        "https://emoji.kaylee.jp:4443",
+                        "https://emoji.cfapps.io",
+                        "https://emoji.cfapps.io:4443",
+                        "http://localhost:8080",
+                        "http://emoji.kaylee.jp",
+                        "http://emoji.kaylee.jp:4443"
+                );
     }
 
     @Override
