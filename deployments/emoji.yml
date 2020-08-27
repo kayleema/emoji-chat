@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emoji
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: emoji
+  template:
+    metadata:
+      labels:
+        app: emoji
+        tier: backend
+        track: stable
+        name: emoji
+    spec:
+      containers:
+        - name: emoji
+          image: "kaori8/emoji:1"
+          ports:
+            - name: spring
+              containerPort: 8080
+          env:
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: emoji-config
+                  key: postgres_host
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: emoji-config
+                  key: postgres_user
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: emoji-config
+                  key: postgres_password

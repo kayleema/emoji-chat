@@ -68,7 +68,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 "/images/**",
                 "/chat/**",
                 "/user/login",
-                "/favicon.ico").requiresSecure();
+                "/favicon.ico");
+//                .requiresSecure();
         http
                 .authorizeRequests()
                 .antMatchers(
