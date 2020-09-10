@@ -18,10 +18,10 @@ export default class ChatSocket {
         });
         const hostname = window.location.hostname;
         const protocol = window.location.protocol;
-        if (hostname === 'emoji.cfapps.io' || hostname === 'emoji.kaylee.jp') {
-            this.client.brokerURL = `wss://${hostname}:4443/posts`;
+        if (hostname === 'localhost') {
+            this.client.brokerURL = `ws://${hostname}:8080/posts`;
         } else {
-            this.client.brokerURL = `wss://${hostname}/posts`;
+            this.client.brokerURL = `ws://${hostname}/posts`;
         }
 
         console.log(this.client);
@@ -111,10 +111,10 @@ export class FeedSocket {
         });
         const hostname = window.location.hostname;
         const protocol = window.location.protocol;
-        if (hostname === 'emoji.cfapps.io' || hostname === 'emoji.kaylee.jp') {
-            this.client.brokerURL = `wss://${hostname}:4443/posts`;
+        if (hostname === 'localhost') {
+            this.client.brokerURL = `ws://${hostname}:8080/posts`;
         } else {
-            this.client.brokerURL = `wss://${hostname}/posts`;
+            this.client.brokerURL = `ws://${hostname}/posts`;
         }
 
         console.log(this.client);

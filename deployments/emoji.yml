@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: emoji
-          image: "kaori8/emoji:1"
+          image: "kaori8/emoji:4"
           ports:
             - name: spring
               containerPort: 8080
