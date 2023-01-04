@@ -9,3 +9,6 @@ cfbluegreendeploy: javabuild
 
 cfdeploy: javabuild
 	cf push;
+
+ansibleDeploy: javabuild
+	ansible-playbook playbooks/deploy.yml

@@ -1,0 +1,12 @@
+---
+- name: Setup Deps
+  hosts: emoji
+  tasks:
+     - name: Install Java
+       command: "sudo yum install -y java-11-openjdk-devel"
+     - name: Setup Firewall
+       command: "sudo firewall-cmd --permanent --add-port=8080/tcp"
+     - name: Reload Firewall
+       command: "sudo firewall-cmd --reload"
+     - name: Install Emoji init.d Service
+       command: "sudo ln -s emoji.jar /etc/init.d/emoji"

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Setter(AccessLevel.PUBLIC)
 @Getter(AccessLevel.PUBLIC)
-@ToString(exclude = "password")
+@ToString(exclude = {"password", "friend"})
 @Entity
 public class EmojiUser implements Serializable {
     public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();

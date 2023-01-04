@@ -10,5 +10,5 @@ public interface EmojiUserRepository extends Repository<EmojiUser, Long> {
 
     EmojiUser findByName(String name);
 
-    EmojiUser getById(Long id);
+    EmojiUser findById(Long id);
 }

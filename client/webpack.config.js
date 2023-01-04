@@ -1,10 +1,16 @@
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
     entry: './src/index.js',
-    devtool: 'sourcemaps',
+    devtool: 'source-map',
     cache: true,
     mode: 'development',
+    plugins: [
+        new webpack.DefinePlugin({
+            process: {env: {}}
+        })
+    ],
     output: {
         path: __dirname,
         filename: '../src/main/resources/static/built/bundle.js'

@@ -39,7 +39,7 @@ public class EmojiUserService {
     }
 
     public EmojiUser getById(Long id) {
-        return repository.getById(id);
+        return repository.findById(id);
     }
 
     public EmojiUser updateProfile(EmojiUser me) {

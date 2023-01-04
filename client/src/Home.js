@@ -22,7 +22,7 @@ export default class Home extends Component {
                         <Link to="/signin" className="buttonLink buttonTransparent">👋🙋💁 ログイン‍️</Link>
                     </p>
                     <p style={{textAlign: 'center'}}>
-                        <Link to='/register' className="buttonLink buttonTransparent">🔰🆕🆔 新しい方</Link>
+                        <Link to='/register' className="buttonLink buttonTransparent">🔰🆕🆔 新規会員登録</Link>
                     </p>
                 </div>
 

@@ -1,5 +1,6 @@
 package hello;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -48,7 +49,7 @@ public class MessageController {
         EmojiUser user = this.emojiUserService.findByName(principal.getName());
 
         message.setFrom(user);
-        message.setConversation(conversationRepository.getById(conversationId));
+        message.setConversation(conversationRepository.findById(conversationId).get());
         messageRepository.save(message);
         System.out.println(message);
         return message;
@@ -61,14 +62,15 @@ public class MessageController {
 
         System.out.print(conversationId);
         System.out.println("newConnection");
-        Conversation convo = conversationRepository.getById(conversationId);
-        List<Message> messageList = messageRepository.findAllByConversation(convo);
-        ChatInitializerDto chatInitDto = new ChatInitializerDto(convo, messageList);
+        Conversation conversation = conversationRepository.findById(conversationId).get();
+        List<Message> messageList = messageRepository.findAllByConversation(conversation);
+        ChatInitializerDto chatInitDto = new ChatInitializerDto(conversation, messageList);
         return chatInitDto;
     }
 
     static class ChatInitializerDto {
         private Conversation conversation;
+
         private List<Message> messageList;
 
         public Conversation getConversation() {

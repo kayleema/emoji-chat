@@ -1,0 +1,10 @@
+---
+- name: Setup Deps
+  hosts: emoji
+  tasks:
+    - name: Install Postgres
+      command: "sudo yum install -y postgresql-server"
+    - name: Init Postgres DB
+      command: "sudo postgresql-setup initdb"
+    - name: Start DB
+      command: "sudo systemctl enable --now postgresql.service"

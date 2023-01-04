@@ -21,7 +21,7 @@ export default class ChatSocket {
         if (hostname === 'localhost') {
             this.client.brokerURL = `ws://${hostname}:8080/posts`;
         } else {
-            this.client.brokerURL = `ws://${hostname}/posts`;
+            this.client.brokerURL = `wss://${hostname}/posts`;
         }
 
         console.log(this.client);
@@ -114,7 +114,7 @@ export class FeedSocket {
         if (hostname === 'localhost') {
             this.client.brokerURL = `ws://${hostname}:8080/posts`;
         } else {
-            this.client.brokerURL = `ws://${hostname}/posts`;
+            this.client.brokerURL = `wss://${hostname}/posts`;
         }
 
         console.log(this.client);

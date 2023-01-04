@@ -1,0 +1,10 @@
+---
+- name: Deploy Application
+  hosts: emoji
+  tasks:
+     - name: Upload JAR
+       copy:
+         src: ../build/libs/shashin-0.0.1-SNAPSHOT.jar
+         dest: ~/emoji.jar
+     - name: Restart Application
+       command: "sudo service emoji restart"

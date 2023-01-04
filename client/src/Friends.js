@@ -87,7 +87,7 @@ export default class Friends extends Component {
                     <h2>📇 友達一覧</h2>
                     <div className="post">
                         {this.state.friendList.map(friend => (
-                            <Link to={`/user/${friend.id}`} className="friendIcon">{friend.name}</Link>
+                            <Link to={`/user/${friend.id}`} className="friendIcon" key={friend.id}>{friend.name}</Link>
                         ))}
                         {this.state.loading && <Spinner/>}
                     </div>

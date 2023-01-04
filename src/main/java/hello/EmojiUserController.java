@@ -65,7 +65,8 @@ public class EmojiUserController {
     @RequestMapping(value = "/user-profile/{userid}", method = RequestMethod.GET)
     @ResponseBody
     public EmojiUser userProfile(final HttpServletRequest request, @PathVariable("userid") Long userid) {
-        return this.service.getById(userid);
+        EmojiUser user = this.service.getById(userid);
+        return user;
     }
 
     @RequestMapping(value = "/username-lookup/{username}", method = RequestMethod.GET)

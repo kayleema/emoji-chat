@@ -17,16 +17,14 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.AnyRequestMatcher;
+import org.springframework.web.filter.ForwardedHeaderFilter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-import static java.lang.System.getenv;
 
 @Configuration
 @EnableWebSecurity
@@ -99,6 +97,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .accessDeniedPage("/signin");
         http.sessionManagement()
                 .invalidSessionUrl("/signin");
+        http.addFilterBefore(new ForwardedHeaderFilter(), WebAsyncManagerIntegrationFilter.class);
     }
 
     private AuthenticationSuccessHandler successHandler() {
