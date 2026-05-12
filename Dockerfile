@@ -22,4 +22,11 @@ RUN ./gradlew bootJar --no-daemon -x test
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 COPY --from=java-build /build/build/libs/*.jar app.jar
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]
+ENTRYPOINT ["java", \
+  "-Djava.security.egd=file:/dev/./urandom", \
+  "-Xms32m", "-Xmx96m", \
+  "-XX:+UseSerialGC", \
+  "-XX:MaxMetaspaceSize=72m", \
+  "-XX:ReservedCodeCacheSize=32m", \
+  "-Xss256k", \
+  "-jar", "app.jar"]

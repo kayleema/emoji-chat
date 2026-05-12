@@ -83,7 +83,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/images/**",
                         "/chat/**",
                         "/user/login",
-                        "/favicon.ico")
+                        "/favicon.ico",
+                        "/actuator/health")
                 .permitAll()
                 .anyRequest().authenticated();
         http

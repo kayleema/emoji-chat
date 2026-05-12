@@ -95,6 +95,27 @@ sudo -u emoji-chat -i
 cd /srv/emoji-chat
 ```
 
+### Set up nginx
+
+TLS is handled by Cloudflare, so nginx only needs to serve HTTP on port 80.
+
+Install nginx if not already present:
+
+```bash
+sudo apt install -y nginx
+```
+
+Copy the provided config and replace the placeholder domain:
+
+```bash
+sudo cp /srv/emoji-chat/nginx/emoji-chat.conf /etc/nginx/sites-available/emoji-chat
+sudo nano /etc/nginx/sites-available/emoji-chat   # replace your.domain.com
+sudo ln -s /etc/nginx/sites-available/emoji-chat /etc/nginx/sites-enabled/emoji-chat
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+> **WebSocket note:** The config includes a dedicated `/posts` block with `Upgrade` headers. Without this, the SockJS WebSocket connection will fail through nginx.
+
 ---
 
 ## Deploy with Docker Compose
@@ -139,13 +160,19 @@ Copy `docker-compose.yml` and `.env.sample` to `/srv/emoji-chat` on the server (
 cp .env.sample .env
 ```
 
+Generate a strong password:
+
+```bash
+openssl rand -base64 32
+```
+
 Edit `.env`:
 
 ```
 APP_IMAGE=yourdockerhubuser/emoji-chat:latest
 APP_PORT=8080          # change if another app owns this port
 POSTGRES_USER=emoji
-POSTGRES_PASS=your_secure_password
+POSTGRES_PASS=<paste generated password here>
 ```
 
 ### 4. Start on the server
@@ -168,6 +195,13 @@ docker compose up -d
 ```
 
 Postgres data lives in the `emoji_chat_postgres` Docker volume and is unaffected by app updates.
+
+### Health check
+
+```bash
+curl http://localhost:8080/actuator/health
+# {"status":"UP"}
+```
 
 ### Useful commands
 

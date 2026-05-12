@@ -1,4 +1,5 @@
 .gradle
+.env
 .idea
 build/
 gradle/
